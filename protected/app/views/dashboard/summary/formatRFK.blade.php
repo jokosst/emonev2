@@ -139,14 +139,16 @@
 			<th rowspan="2">Program</th>
 			<th rowspan="2">Kode Anggaran</th>
 			<th rowspan="2">Kegiatan</th>
-			<th rowspan="2">Belanja Menurut DIPA/DPA Sebelum Perubahan</th>
-			<th rowspan="2">Belanja Menutut DIPA/DPA Sesudah Perubahan</th>
+			<th colspan="2">Belanja Menurut DIPA/DPA</th>
+			<!-- <th rowspan="2">Belanja Menutut DIPA/DPA Sesudah Perubahan</th> -->
 			<th rowspan="2">Bobot</th>
 			<!-- <th rowspan="2">Nilai Kontrak Swakelola</th> -->
 			<th colspan="3">Realisasi Fisik</th>
 			<th colspan="2">Realisasi Keuangan</th>
 		</tr>
 		<tr>
+			<th>Sebelum</th>
+			<th>Sesudah</th>
 			<th>Rencana</th>
 			<th>Realisasi</th>
 			<th>Tertimbang</th>

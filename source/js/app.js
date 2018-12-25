@@ -114,14 +114,7 @@ $(document).ready(function() {
 	
 
 	/* hitung BL */
-	$("#hitungBl").click(function() {
-		var blp = Number($("input[name='blp']").val().replace(/[Rp.]+/g,""));
-		var blnp = Number($("input[name='blnp']").val().replace(/[Rp.]+/g,""));
-		var total = blp+blnp;
-		$("#pagu").maskMoney('mask',total);
-		$("input[name='pagu']").val(total);
-		return false;
-	});
+	
 	
 
 	

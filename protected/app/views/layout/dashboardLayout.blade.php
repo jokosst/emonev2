@@ -78,6 +78,7 @@
 								<li><a href="{{URL::to('logout')}}">Logout</a></li>
 						</ul>
 						</li>
+						 <li><a href="{{URL::to('/emonevpanel/apbn')}}">APBN</a></li>
 					</ul>
 				</div><!-- /.navbar-collapse -->
 

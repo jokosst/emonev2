@@ -121,7 +121,7 @@
 			<div class="col-md-12">
 				<div class="form-group" id="status1">
 					<label for="">Status</label>
-					<select name="status" class="form-control">
+					<select name="status" class="form-control" id="status">
 						<option value="belum-mengajukan-dokumen-tender">Belum Mengajukan Dokumen Tender</option>
 						<option value="lelang-sedang-berjalan">Tender Sedang Berjalan</option>
 						<option value="lelang-sudah-selesai">Tender Sudah Selesai</option>
@@ -134,7 +134,7 @@
 			<div class="col-md-12">
 				<div class="form-group" id="status2">
 					<label for="">Status</label>
-					<select name="status" class="form-control">
+					<select name="status" class="form-control" id="status21">
 						<option value="belum-proses">Belum Proses</option>
 						<option value="proses-sedang-berjalan">proses sedang berjalan</option>
 						<option value="proses-selesai">proses selesai</option>
@@ -142,9 +142,15 @@
 				</div>
 			</div>
 			<div class="col-md-12">
-			<div class="form-group">
+			<div class="form-group" id="rekanan1">
 				<label for="">Rekanan</label>
 				<input type="text" name="rekanan" class="form-control">
+			</div>
+		</div>
+	<div class="col-md-12">
+			<div class="form-group" id="rekanan2">
+				<label for="">Rekanan</label>
+				<input type="text" disabled name="rekanan" class="form-control">
 			</div>
 		</div>
 	
@@ -234,6 +240,29 @@
 			$("#hps").hide();
 			$("#status2").show();
 			$("#status1").hide();
+		}
+	});
+
+	$("#rekanan1").hide();
+	$("#status").change(function() {
+		
+		var status = $(this).val();
+		if(status == "lelang-sudah-selesai"){
+			$("#rekanan1").show();
+			$("#rekanan2").hide();
+		}else{
+			$("#rekanan2").show();
+			$("#rekanan1").hide();
+		}
+	});
+	$("#status21").change(function() {		
+		var status = $(this).val();
+		if(status == "proses-selesai"){
+			$("#rekanan1").show();
+			$("#rekanan2").hide();
+		}else{
+			$("#rekanan2").show();
+			$("#rekanan1").hide();
 		}
 	});
 </script>

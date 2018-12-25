@@ -41,6 +41,8 @@ Route::group(array('before' => 'auth', 'prefix' => 'emonevpanel'),function() {
 	Route::post('program/insert','ProgramController@insertProgram');
 	Route::post('/program/update','ProgramController@updateProgram');
 	Route::get('/program/delete','ProgramController@deleteProgram');
+	Route::get('apbn','ApbnController@indexApbn');
+	Route::get('apbn/create','ApbnController@createApbn');
 
 	Route::get('kegiatan','KegiatanController@indexKegiatan');
 	Route::get('kegiatan/create','KegiatanController@createKegiatan');

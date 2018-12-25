@@ -42,8 +42,16 @@
 	    <legend>Ganti Password</legend>
 	    <input type="hidden" name="id_operator">
 	    <div class="form-group">
-	      <label for="">Password</label>
+	      <label for="">Password Lama</label>
+	      <input type="password" class="form-control" name="password_lama" placeholder="Old Password">
+	    </div>
+	    <div class="form-group">
+	      <label for="">Password Baru</label>
 	      <input type="password" class="form-control" name="password" placeholder="New Password">
+	    </div>
+	    <div class="form-group">
+	      <label for="">Konfirmasi Password</label>
+	      <input type="password" class="form-control" name="konfirm_password" placeholder="Konfirm Password">
 	    </div>
 	    <button type="submit" class="btn btn-primary">Submit</button>
 	  </form>

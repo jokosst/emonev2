@@ -132,6 +132,14 @@
 							<div class="help-block with-errors"></div>
 						</div> <!-- END Input Belanja Langung Non Pegawai (BLNP) -->
 					</div> <!-- End Col-6 -->
+					<div class="col-md-12">
+						<!-- Input Belanja Langung Non Pegawai (BLNP) -->
+						<div class="form-group" id="blm" style="display:none;">
+							<label for="">Belanja Modal</label>
+							<input type="text" name="blm"  class="form-control setMoney" placeholder="Rp " required data-error="Isi dengan 0 (Nol) jika tidak ada anggaran (letakkan kursor pada form inputan)">
+							<div class="help-block with-errors"></div>
+						</div> <!-- END Input Belanja Langung Non Pegawai (BLNP) -->
+					</div>
 					<!-- Input Belanja Tidak LangungPegawai (BTLP) -->
 				<div class="col-md-12">
 				<div class="form-group" id="btlp" style="display:none;">
@@ -182,11 +190,11 @@
 	});
 
 $("#jenis_belanja").change(function() {
-		$("#blp, #blnp,#blnp2, #btlp, #hitungBl,#hitungBl2").hide();
-		$("input[name='blp'], input[name='blnp'],input[name='blnp2'], input[name='btlp'], #pagu").val("");
+		$("#blp, #blnp,#blm, #blnp2, #btlp, #hitungBl,#hitungBl2").hide();
+		$("input[name='blp'], input[name='blnp'],input[name='blm'],input[name='blnp2'], input[name='btlp'], #pagu").val("");
 		var jb = $(this).val();
 		if(jb == 'bl') {
-			$("#blp, #blnp, #hitungBl").show();
+			$("#blp, #blnp, #blm, #hitungBl").show();
 		} else if(jb = 'btl') {
 			$("#btlp, #blnp2, #hitungBl2").show();
 			$("select[name='program_id']").html("<option value=''>-- Kosong --</option>");
@@ -197,6 +205,15 @@ $("#hitungBl2").click(function() {
 		var blp = Number($("input[name='btlp']").val().replace(/[Rp.]+/g,""));
 		var blnp = Number($("input[name='blnp2']").val().replace(/[Rp.]+/g,""));
 		var total = blp+blnp;
+		$("#pagu").maskMoney('mask',total);
+		$("input[name='pagu']").val(total);
+		return false;
+	});
+$("#hitungBl").click(function() {
+		var blp = Number($("input[name='blp']").val().replace(/[Rp.]+/g,""));
+		var blnp = Number($("input[name='blnp']").val().replace(/[Rp.]+/g,""));
+		var blm = Number($("input[name='blm']").val().replace(/[Rp.]+/g,""));
+		var total = blp+blnp+blm;
 		$("#pagu").maskMoney('mask',total);
 		$("input[name='pagu']").val(total);
 		return false;

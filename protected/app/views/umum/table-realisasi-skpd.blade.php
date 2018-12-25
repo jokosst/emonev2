@@ -13,7 +13,7 @@
 			<tr>
 				<td>{{ $series_content['name'] }}</td>
 				@foreach($series_content['data'] as $value)
-				<td>{{ $value }}</td>
+				<td>{{number_format($value, 2) }}</td>
 				@endforeach
 			</tr>
 			@endforeach
