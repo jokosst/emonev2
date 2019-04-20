@@ -4,30 +4,11 @@
 
 <h2 class="menu__header">Format A2</h2>
 <!-- FORM SORTIR SUMMARY -->
-<form action="" style="margin-bottom:30px;" class="form-inline" method="GET" role="form" data-toggle="validator">
-  <legend>Sortir Summary</legend>
-  <!-- pilihan memilih Tahun -->
-  <div class="form-group">
-    <label for="">Tahun</label>
-    <select name="tahun_id" class="form-control" required>
-      <!-- Menampilkan Semua Tahun -->
-      @foreach($Tahun as $tahun)
-        <option @if(isset($tahun_id) && $tahun_id == "$tahun->id") selected  @endif value="{{$tahun->id}}">{{$tahun->tahun}}</option>
-      @endforeach
-    </select>
-  </div>
-  
-  <button type="submit" name="pilihan" value="sortir" class="btn btn-primary">Submit</button>
-  <div style="margin-bottom: 10px;float:right;">
-<button type="submit" name="pilihan" value="print" class="btn btn-warning"><i class="fa fa-print"></i> 
- </div>
-</form>
 
 
 <!-- END FORM SORTIR SUMMARY -->
-<div id="chart_div" style="max-width:950px; overflow:auto; padding-bottom:20px;"></div>
+<div id="chart_div" style="max-width:1200px;  padding-bottom:20px; margin-left:-250px; "></div>
 @endsection
-
 @section('script')
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
@@ -77,4 +58,7 @@
         chart.draw(data, {allowHtml:true});
       }
    </script>
+   <script>
+    window.print();
+  </script>
 @endsection

@@ -152,7 +152,7 @@
 						<!-- Input Belanja Langung Non Pegawai (BLNP) -->
 						<div class="form-group" id="blnp2" style="display:none;">
 							<label for="">Belanja Tidak Langsung Non Pegawai</label>
-							<input type="text" name="blnp2"  class="form-control setMoney" placeholder="Rp " required data-error="Isi dengan 0 (Nol) jika tidak ada anggaran (letakkan kursor pada form inputan)">
+							<input type="text" name="btlnp"  class="form-control setMoney" placeholder="Rp " required data-error="Isi dengan 0 (Nol) jika tidak ada anggaran (letakkan kursor pada form inputan)">
 							<div class="help-block with-errors"></div>
 						</div> <!-- END Input Belanja Langung Non Pegawai (BLNP) -->
 					</div>
@@ -166,6 +166,7 @@
 					<label for="">Pagu</label>
 					<input type="text" id="pagu" class="form-control setMoneyPagu"  placeholder="Total Pagu dari Jenis Belanja" disabled>
 					<input type="hidden" name="pagu">
+					
 				</div> <!-- END Input Pagu (Disable) -->
 			</div>
 			<div class="col-md-12">

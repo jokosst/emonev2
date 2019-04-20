@@ -11,18 +11,38 @@ class ApbnController extends BaseController {
 	public function indexApbn() {
 		$skpd_id = Auth::user()->pegawai->skpd->id;
 		$tahun_id = Tahun::where('tahun',date("Y"))->first()->id;
-
+		$data['Skpd'] = Skpd::getSkpd($skpd_id);
 		$data['tahun_id'] = $tahun_id;
 		$data['Tahun'] = Tahun::orderBy('id', 'DESC')->get();
 		$data['nameTahun'] = Tahun::find($tahun_id);
-		$data['Kegiatan'] = Kegiatan::where('skpd_id','=',$skpd_id)->where('tahun_id',$tahun_id)->get();
-		$data['Program'] = Program::where('tahun_id',$tahun_id)->where('skpd_id',$skpd_id)->get();
+		
+		if(Input::has('triwulan') && Input::has('tahun_id')) {
+			$triwulan = Input::get('triwulan');
+			$tahun_id = Input::get('tahun_id');
+			$data['Apbn'] = DB::table('apbn')->select('apbn.id','apbn.anggaran','kegiatan.kegiatan','program.program','lokasi.lokasi')
+						->leftjoin('kegiatan','kegiatan.id','=','apbn.kegiatan_id')
+						->leftjoin('program','program.id','=','apbn.program_id')
+						->leftjoin('lokasi','lokasi.id','=','apbn.lokasi_id')
+						->where('apbn.triwulan',$triwulan)
+						->where('apbn.tahun_id',$tahun_id)->get();
+		}else{
+
+		$data['Skpd'] = Skpd::getSkpd($skpd_id);
+		$data['tahun_id'] = $tahun_id;
+		$data['Tahun'] = Tahun::orderBy('id', 'DESC')->get();
+		$data['nameTahun'] = Tahun::find($tahun_id);
+		$data['Apbn'] = DB::table('apbn')->select('apbn.id','apbn.anggaran','kegiatan.kegiatan','program.program','lokasi.lokasi')
+						->leftjoin('kegiatan','kegiatan.id','=','apbn.kegiatan_id')
+						->leftjoin('program','program.id','=','apbn.program_id')
+						->leftjoin('lokasi','lokasi.id','=','apbn.lokasi_id')->get();
+					}
 		return View::make('dashboard.apbn.indexApbn',$data);
 	}
 
-	public function createApbn() {
+	 public function createApbn() {
 		$skpd_id = Auth::user()->pegawai->skpd->id;
 		$tahun_id = Tahun::where('tahun', date("Y"))->first()->id;
+		$data['Skpd'] = Skpd::getSkpd($skpd_id);
 		$data['Tahun'] = Tahun::orderBy('id', 'DESC')->get();
 		$data['tahun_id'] = $tahun_id;
 		$data['Program'] = Program::where('tahun_id',$tahun_id)->get();
@@ -31,95 +51,56 @@ class ApbnController extends BaseController {
 		return View::make('dashboard.apbn.createApbn',$data);
 	}
 
-	public function insertKegiatan() {
+	public function insertApbn() {
 		$data = Input::all();
-		$data['pagu_awal'] = Input::get('pagu');
-		$data['slug_kegiatan'] = Convert::make_slug(Input::get('kegiatan'));
-		$data['blp'] = str_replace(['Rp','.'], '', Input::get('blp'));
-		$data['blnp'] = str_replace(['Rp','.'], '', Input::get('blnp'));
-		$data['btlp'] = str_replace(['Rp','.'], '', Input::get('btlp'));
+		$data['total'] = str_replace(['Rp','.'], '', Input::get('total'));
 
-		$kegiatan_id = Kegiatan::insertGetId($data);
-
-		$skpd_id = Input::get('skpd_id');
-		$tahun_id = Input::get('tahun_id');
-
-		/* Ambil dan Update data pagu total skpd */
-		$pagu_total_skpd = Kegiatan::hitungPaguSkpd($skpd_id,$tahun_id);
-		DB::table('pagu_total_skpd')->where('tahun_id',$tahun_id)->where('skpd_id',$skpd_id)->update(array('pagu_total'=>$pagu_total_skpd));
-
-		/* Ambil dan Update data pagu total kabupaten */
-		$pagu_total_kabupaten = Kegiatan::hitungPaguKab($tahun_id);
-		DB::table('pagu_total_kabupaten')->where('tahun_id',$tahun_id)->update(array('pagu_total'=>$pagu_total_kabupaten));
-
-		/* Insert realiasi kegiatan setiap tambah kegiatan setiap bulan */
-      $bulan_sekarang = Date('m');
-        
-      for($bulan = 1; $bulan <= $bulan_sekarang; $bulan++)
-      {
-      		DB::table('realisasi_kegiatan')->insert(array('skpd_id'=>$skpd_id,'kegiatan_id'=>$kegiatan_id,'tahun_id'=>$tahun_id,'punya_paket'=>0,'fisik'=>0,'uang'=>0,'pengeluaran'=>0,'bulan'=>$bulan));
-      }
-		
-		return Redirect::to('emonevpanel/kegiatan');
+		Apbn::insert($data);		
+		return Redirect::to('emonevpanel/apbn');
 	}
 
-	public function detailKegiatan($id) {
-		$data['kegiatan'] = Kegiatan::where('id',$id)->first();
-		return View::make('dashboard.kegiatan.detailKegiatan',$data);
+	public function detailApbn($id) {
+		// $apbn1 = Apbn::find($id);
+		// $tahun = $apbn1->tahun_id;
+		// $data['Tahun'] = Tahun::find($tahun);
+		$data['apbn'] = Apbn::where('id',$id)->first();
+		// $data['apbn'] = DB::table('apbn')->select('apbn.*','kegiatan.kegiatan','program.program','lokasi.lokasi')
+		// 				->join('kegiatan','kegiatan.id','=','apbn.kegiatan_id')
+		// 				->join('program','program.id','=','apbn.program_id')
+		// 				->join('lokasi','lokasi.id','=','apbn.lokasi_id')
+		// 				->where('apbn.id',$id)->get();
+		return View::make('dashboard.apbn.detailApbn',$data);
 	}
 
-	public function editKegiatan($id) {
-		$kegiatan = Kegiatan::find($id);
-		$data['kegiatan'] = $kegiatan;
-		$data['Program'] = Program::where('skpd_id',$kegiatan->skpd_id)->where('tahun_id',$kegiatan->tahun_id)->get();
-		$data['Pegawai'] = Pegawai::where('skpd_id',$data['kegiatan']->skpd_id)->where('kpa',1)->get();
-		return View::make('dashboard.kegiatan.editKegiatan',$data);
+	public function editApbn($id) {
+		$apbn1 = Apbn::find($id);
+		$tahun = $apbn1->tahun_id;
+		$data['Tahun'] = Tahun::find($tahun);
+		// dd($tahun);
+		$data['apbn'] = $apbn1;
+		$data['Program'] = Program::where('tahun_id',$apbn1->tahun_id)->get();
+		$data['Kegiatan'] = Kegiatan::where('tahun_id',$apbn1->tahun_id)->where('skpd_id',$apbn1->skpd_id)->get();
+		$data['Lokasi'] = Lokasi::all();
+		return View::make('dashboard.apbn.editApbn',$data);
 	}
 
-	public function updateKegiatan() {
+	public function updateApbn() {
+		$data = Input::all();
 		$id = Input::get('id');
-		$data = Input::all();
-		$data['slug_kegiatan'] = Convert::make_slug(Input::get('kegiatan'));
-		$data['blp'] = str_replace(['Rp','.'], '', Input::get('blp'));
-		$data['blnp'] = str_replace(['Rp','.'], '', Input::get('blnp'));
-		$data['btlp'] = str_replace(['Rp','.'], '', Input::get('btlp'));
-		$sumber_dana = Input::get('sumber_dana');
-		$skpd_id = Input::get('skpd_id');
-		$tahun_id = Input::get('tahun_id');
-		if($sumber_dana == 'APBD-P' || $sumber_dana == 'APBN-P') {
-			$data['pagu_perubahan'] = Input::get('pagu');
-		} elseif($sumber_dana == 'APBD' || $sumber_dana == 'APBN') {
-			$data['pagu_awal'] = Input::get('pagu');
-		}
-		Kegiatan::where('id',$id)->update($data);
-
-		/* Ambil dan Update data pagu total skpd */
-		$pagu_total_skpd = Kegiatan::hitungPaguSkpd($skpd_id,$tahun_id);
-		DB::table('pagu_total_skpd')->where('tahun_id',$tahun_id)->where('skpd_id',$skpd_id)->update(array('pagu_total'=>$pagu_total_skpd));
-		/* Ambil dan Update data pagu total kabupaten */
-		$pagu_total_kabupaten = Kegiatan::hitungPaguKab($tahun_id);
-		DB::table('pagu_total_kabupaten')->where('tahun_id',$tahun_id)->update(array('pagu_total'=>$pagu_total_kabupaten));
-
-		return Redirect::to('emonevpanel/kegiatan');
+		$data['total'] = str_replace(['Rp','.'], '', Input::get('total'));
+		DB::table('apbn')->where('id',$id)->update($data);
+		return Redirect::to('emonevpanel/apbn');
 	}
 
-	public function hapusKegiatan($id) {
-		$kegiatan = Kegiatan::where('id',$id)->first();
-		$skpd_id = $kegiatan->skpd_id;
-		$tahun_id = $kegiatan->tahun_id;
+	public function hapusApbn($id) {
+		$apbn = Apbn::where('id',$id)->first();
+		$skpd_id = $apbn->skpd_id;
+		$tahun_id = $apbn->tahun_id;
 
 		/* Proses Menghapus Kegiatan */
-		DB::table('kegiatan')->where('id',$id)->delete();
+		DB::table('apbn')->where('id',$id)->delete();
 
-		/* Ambil dan Update data pagu total skpd */
-		$pagu_total_skpd = Kegiatan::hitungPaguSkpd($skpd_id,$tahun_id);
-		DB::table('pagu_total_skpd')->where('tahun_id',$tahun_id)->where('skpd_id',$skpd_id)->update(array('pagu_total'=>$pagu_total_skpd));
-		/* Ambil dan Update data pagu total kabupaten */
-		$pagu_total_kabupaten = Kegiatan::hitungPaguKab($tahun_id);
-		DB::table('pagu_total_kabupaten')->where('tahun_id',$tahun_id)->update(array('pagu_total'=>$pagu_total_kabupaten));
-
-		DB::table('realisasi_kegiatan')->where('kegiatan_id',$id)->where('skpd_id',$skpd_id)->where('tahun_id',$tahun_id)->delete();
-		return Redirect::to('emonevpanel/kegiatan');
+		return Redirect::to('emonevpanel/apbn');
 	}
 }
 

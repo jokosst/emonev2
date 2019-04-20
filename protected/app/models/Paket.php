@@ -21,6 +21,9 @@
 		public function lokasi() {
 			return $this->belongsTo('Lokasi');
 		}
+		public function pegawai() {
+			return $this->belongsTo('Pegawai');
+		}
 	}
 
 ?>

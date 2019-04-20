@@ -24,6 +24,9 @@ class Kegiatan extends Eloquent {
 	public function program() {
 		return $this->belongsTo('Program');
 	}
+	public function Apbn() {
+		return $this->hasMany('Apbn');
+	}
 
 	public static function totalKegiatan($skpd_id,$tahun_id) {
 		$total = Kegiatan::where('skpd_id',$skpd_id)->where('tahun_id',$tahun_id)->count();
@@ -95,9 +98,21 @@ class Kegiatan extends Eloquent {
 
 	public static function hitungTotalFisik($skpd_id, $tahun_id, $bulan)
 	{
-		$fisik = DB::table('realisasi_kegiatan')->where('skpd_id',$skpd_id)->where('tahun_id',$tahun_id)->where('bulan',$bulan)->sum('fisik');
+		// $tahun_id = Tahun::where('tahun',date("Y"))->first()->id;
+
+		// $tabel_realisasi = DB::table('realisasi_kegiatan')->where('tahun_id',$tahun_id)->get();
+		// if(empty($tabel_realisasi)){
+		// 	echo"<script>alert('Silahkan Isi Kegiatan Dulu');window.location='emonevpanel/kegiatan/create'</script>";
+		// }else{
+		// 	$fisik = DB::table('realisasi_kegiatan')->where('skpd_id',$skpd_id)->where('tahun_id',$tahun_id)->where('bulan',$bulan)->sum('fisik');
+		// $total = $fisik / self::totalKegiatan($skpd_id, $tahun_id);
+		// return $total;
+		// }
+$fisik = DB::table('realisasi_kegiatan')->where('skpd_id',$skpd_id)->where('tahun_id',$tahun_id)->where('bulan',$bulan)->sum('fisik');
 		$total = $fisik / self::totalKegiatan($skpd_id, $tahun_id);
 		return $total;
+	
+		
 	}
 
 	public static function hitungTotalTertimbang($skpd_id, $tahun_id, $bulan)

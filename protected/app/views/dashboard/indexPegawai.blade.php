@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="cover"></div>
-<h2 class="menu__header">Pegawai SKPD</h2>
+<h2 class="menu__header">Pegawai Perangkat Daerah</h2>
 <a href="{{URL::to('emonevpanel/pegawai/create')}}" class="btn btn-primary" style="float:right;">Tambah Pegawai</a>
 
 <h4 class="table-title">Tabel KPA/PA/PPK</h4>

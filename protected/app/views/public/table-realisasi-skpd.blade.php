@@ -13,7 +13,12 @@
 			<tr>
 				<td>{{ $series_content['name'] }}</td>
 				@foreach($series_content['data'] as $value)
-				<td>{{ str_replace('.' , ',' , $value) }}</td>
+				<td><?php
+				$coba2 =  number_format($value,2);
+				echo str_replace('.', ',', $coba2);
+   					?>
+   	
+   				</td>
 				@endforeach
 
 				@for($i = count($series_content['data']); $i < 12; $i++)

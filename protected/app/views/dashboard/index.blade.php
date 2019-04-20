@@ -3,7 +3,20 @@
 @section('content')
 
 
-	<h2 class="menu__header">Selamat Datang</h2>
+@if($paket_lelang !=null)
+	
+	@if($paket_lelang->jenis_proses_lelang == 'e-tendering')
+<h2 class="menu__header">Aktifitas Tender APBD Kabupaten Sanggau TA. <?php echo date('Y'); ?></h2>
+@elseif($paket_lelang->jenis_proses_lelang == 'non-tender' || $paket_lelang->jenis_proses_lelang == 'e-purchasing')
+<h2 class="menu__header">Aktifitas Non Tender APBD Kabupaten Sanggau TA. <?php echo date('Y'); ?></h2>
+@else
+<h2 class="menu__header">Selamat Datang</h2>
+@endif
+
+@else
+<h2 class="menu__header">Selamat Datang</h2>
+@endif
+	
 	<div class="row">
 		<div class="col-md-4">
 			<div class="box__section">

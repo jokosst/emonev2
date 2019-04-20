@@ -30,8 +30,8 @@ class AuthController extends BaseController {
            		// return "berhasil";
 				return Redirect::to('emonevpanel/'); /* Login Success */
 			} else {
-            	return "gagal";
-				// return Redirect::to('login');
+            	// return "gagal";
+				return Redirect::to('login');
 
 			} /* END OF if Attempt */
 		} /* END OF if validator */

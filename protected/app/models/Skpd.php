@@ -21,6 +21,9 @@ class Skpd extends Eloquent {
 	public function Progres() {
 		return $this->hasMany('Progres');
 	}
+	public function Apbn() {
+		return $this->hasMany('Apbn');
+	}
 
 
 	public static function getSkpd($id) {

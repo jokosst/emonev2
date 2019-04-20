@@ -3,6 +3,12 @@
 @section('content')
 	<div class="cover"></div>
 	<h2 class="menu__header">Detail Akun</h2>
+	 @if(Session::has('konf'))
+	<div class="alert alert-success">
+              <button class="close" data-dismiss="alert">×</button>
+              <strong>{{Session::get('konf')}}</strong></div>
+@endif
+        
 	<div class="box-detailAkun">
 		<h4>{{$akun->pegawai->pegawai}}</h4>
 		<p><b>Username</b> : {{$akun->username}}</p>
@@ -43,17 +49,18 @@
 	    <input type="hidden" name="id_operator">
 	    <div class="form-group">
 	      <label for="">Password Lama</label>
-	      <input type="password" class="form-control" name="password_lama" placeholder="Old Password">
+	      <input type="password" class="form-control" name="password_lama" placeholder="Old Password" required>
 	    </div>
 	    <div class="form-group">
 	      <label for="">Password Baru</label>
-	      <input type="password" class="form-control" name="password" placeholder="New Password">
+	      <input type="password" id="txtPassword" class="form-control" name="password" placeholder="New Password" required>
 	    </div>
 	    <div class="form-group">
 	      <label for="">Konfirmasi Password</label>
-	      <input type="password" class="form-control" name="konfirm_password" placeholder="Konfirm Password">
+	      <input type="password" id="txtConfirmPassword" class="form-control" name="konfirm_password" placeholder="Konfirm Password" required>
 	    </div>
-	    <button type="submit" class="btn btn-primary">Submit</button>
+	    <input type="hidden" name="username" value="{{$akun->username}}">
+	    <button type="submit" id="btnSubmit" class="btn btn-primary">Submit</button>
 	  </form>
 	</div>
 @endsection
@@ -72,4 +79,17 @@
 		});
 
 	</script>
+	<script type="text/javascript">
+        $(function () {
+            $("#btnSubmit").click(function () {
+                var password = $("#txtPassword").val();
+                var confirmPassword = $("#txtConfirmPassword").val();
+                if (password != confirmPassword) {
+                    alert("Password Konfirmasi Tidak Sama.");
+                    return false;
+                }
+                return true;
+            });
+        });
+    </script>
 @endsection

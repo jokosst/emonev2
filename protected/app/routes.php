@@ -41,8 +41,14 @@ Route::group(array('before' => 'auth', 'prefix' => 'emonevpanel'),function() {
 	Route::post('program/insert','ProgramController@insertProgram');
 	Route::post('/program/update','ProgramController@updateProgram');
 	Route::get('/program/delete','ProgramController@deleteProgram');
+
 	Route::get('apbn','ApbnController@indexApbn');
 	Route::get('apbn/create','ApbnController@createApbn');
+	Route::post('apbn/create','ApbnController@insertApbn');
+	Route::get('/apbn/detail/{id}','ApbnController@detailApbn');
+	Route::get('apbn/edit/{id}','ApbnController@editApbn');
+	Route::post('apbn/update','ApbnController@updateApbn');
+	Route::get('apbn/hapus/{id}','ApbnController@hapusApbn');
 
 	Route::get('kegiatan','KegiatanController@indexKegiatan');
 	Route::get('kegiatan/create','KegiatanController@createKegiatan');
@@ -55,10 +61,14 @@ Route::group(array('before' => 'auth', 'prefix' => 'emonevpanel'),function() {
 	Route::get('daftar-paket','PaketController@indexDaftarPaket');
 	Route::get('daftar-paket/create','PaketController@createDaftarPaket');
 	Route::post('daftar-paket/create','PaketController@insertDaftarPaket');
+	Route::post('cari_paket','PaketController@cari_paket');
+	Route::post('cari_satker','PaketController@cari_satker');
 	Route::get('daftar-paket/detail/{id}','PaketController@detailDaftarPaket');
 	Route::get('daftar-paket/edit/{id}','PaketController@editDaftarPaket');
 	Route::post('daftar-paket/update','PaketController@updateDaftarPaket');
 	Route::get('daftar-paket/hapus/{id}','PaketController@hapusDaftarPaket');
+	Route::get('paket_sirup','PaketController@paket_sirup');
+	Route::get('paket_sirup/detail/{id}','PaketController@detailPaketSirup');
 
 	Route::get('paket-lelang','PaketController@indexPaketLelang');
 	Route::get('paket-lelang/create','PaketController@createPaketLelang');
@@ -129,13 +139,23 @@ Route::group(array('before' => 'auth', 'prefix' => 'emonevpanel'),function() {
 	Route::get('summary','SummaryController@indexSummary');
 	Route::get('summary/format-a1','SummaryController@formatA1');
 	Route::get('summary/format-a2','SummaryController@formatA2');
+	Route::get('summary/print_a2','SummaryController@print_a2');
 	Route::get('summary/format-a3','SummaryController@formatA3');
+	Route::get('summary/print_a3','SummaryController@print_a3');
 	Route::get('summary/format-a4','SummaryController@formatA4');
+	Route::get('summary/print_a4','SummaryController@print_a4');
 	Route::get('summary/format-b','SummaryController@formatB');
+	Route::get('summary/print_b','SummaryController@print_b');
 	Route::get('summary/format-d','SummaryController@formatD');
+	Route::get('summary/print_d','SummaryController@print_d');
 	Route::get('summary/format-dk1','SummaryController@formatDK1');
+	Route::get('summary/print_dk1','SummaryController@print_dk1');
 	Route::get('summary/format-fiskeu','SummaryController@formatRFK');
 	Route::get('summary/download','SummaryController@downloadRFK');
+	Route::get('summary/tabel1','SummaryController@tabel1');
+	Route::get('summary/print_a1','SummaryController@print_a1');
+	Route::get('summary/tabel2','SummaryController@tabel2');
+	Route::get('summary/print_dk2','SummaryController@print_dk2');
 
 	Route::get('summary/download-pdf-rfk','SummaryController@downloadPdfRfk');
 	Route::get('summary/download-excel-rfk','SummaryController@downloadExcelRfk');

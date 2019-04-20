@@ -20,14 +20,20 @@
 		<tr>
 			<td>{{ $series_content['name'] }}</td>
 			@foreach($series_content['data'] as $value)
-			<td>{{ str_replace('.', ',', $value) }}</td>
+			<td><?php
+				$coba2 =  number_format((float)$value,2);
+				echo str_replace('.', ',', $coba2);
+   					?></td>
 			@endforeach
 		</tr>
 		@endforeach
 		<tr>
 			<td>Realisasi s.d {{ date('d M') }}</td>
 			@foreach($total_realisasi as $value)
-			<td>{{ str_replace('.', ',', $value) }}</td>
+			<td><?php
+				$coba2 =  number_format($value,2);
+				echo str_replace('.', ',', $coba2);
+   					?></td>
 			@endforeach
 
 			@for($i = count($total_realisasi); $i < 6; $i++)

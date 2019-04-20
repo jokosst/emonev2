@@ -17,6 +17,7 @@
 					<input type="hidden" name="tahun_id" id="tahunId" value="{{$tahun_id}}">
 				</div>
 			</div>
+			<input type="hidden" name="skpd_id" value="">
 			<div class="col-md-12">
 				<!-- Input Sumber Dana -->
 				<div class="form-group">
@@ -54,7 +55,7 @@
 			<select name="kegiatan_id" class="form-control selectpicker" data-live-search="true" id="changeKegiatan">
 			<option value="">----- Pilih Kegiatan -----</option>
 		@foreach($Kegiatan as $kegiatan)
-			<option value="{{$kegiatan->id}}" data-pagu="{{$kegiatan->pagu}}">{{$kegiatan->kegiatan}}</option>
+			<option value="{{$kegiatan->id}}">{{$kegiatan->kegiatan}}</option>
 		@endforeach
 		</select>
 		</div> <!-- End Input Kegiatan -->
@@ -86,8 +87,8 @@
 			<div class="col-md-12">
 				<div class="form-group">
 					<label for="">Total</label>
-					<input type="text" id="total" class="form-control setMoneyPagu"  placeholder="Total Pagu dari Jenis Belanja">
-					<input type="hidden" name="total">
+					<input type="text" id="total" name="total" class="form-control setMoneyPagu"  placeholder="Total Pagu dari Jenis Belanja">
+					<!-- <input type="hidden" name="total"> -->
 				</div> <!-- END Input Pagu (Disable) -->
 			</div>
 			<div class="col-md-12">
@@ -115,7 +116,7 @@
 				<!-- Input Sumber Dana -->
 				<div class="form-group">
 					<label for="">Realisasi</label>
-					<select class="form-control" name="sumber_dana">
+					<select class="form-control" name="realisasi">
 						<option value="realisasi-keuangan">Realisasi Keuangan</option>						
 						<option value="realisasi-fisik">Realisasi Fisik</option>
 						

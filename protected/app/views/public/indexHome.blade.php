@@ -15,26 +15,35 @@
 			<button id="btn-lihat-data" class="btn btn-sortir">Lihat Data</button>
 		</div>
 	</section>
-	<section style="padding:10px 0 20px;">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-10 col-md-offset-1">
-					<div id="grafik-realisasi" style="width: calc( 100% - 50px);"></div>
-					<div id="table-realisasi">{{ $table_realisasi }}</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<section style="background:#F1EEE4; padding: 20px;">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-10 col-md-offset-1">
+	<div class="row" style="padding-top: 15px;">
+
+	
+
+	<!-- <section style="background:#F1EEE4; padding: 20px;"> -->
+		<!-- div class="container">
+			<div class="row"> -->
+				<div class="col-md-6" style="background:#F1EEE4;">
 					<div id="grafik-realisasi-detail" style="width: calc( 100% - 50px);"></div>
 					<div id="table-realisasi-bulanan">{{ $table_realisasi_bulanan }}</div>
 				</div>
-			</div>
-		</div>
-	</section>
+			<!-- </div>
+		</div> -->
+	<!-- </section> -->
+<!-- <section style="padding:10px 0 20px;"> -->
+		
+		<!-- <div class="container">
+			<div class="row"> -->
+				<div class="col-md-6">
+					<div id="grafik-realisasi" style="width: calc( 100% - 50px);"></div>
+					<div id="table-realisasi">{{ $table_realisasi }}</div>
+				</div>
+			<!-- </div>
+		</div> -->
+		
+	<!-- </section> -->
+
+</div>	
+
 @endsection
 
 @section('script')

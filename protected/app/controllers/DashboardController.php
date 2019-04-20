@@ -9,11 +9,18 @@ class DashboardController extends BaseController {
 		View::share(array('menu'=>$this->menu));
 	}
 
-	public function index(){
+	 public function index(){
+		$tahun = date('Y');
 		$skpd_id = Auth::user()->pegawai->skpd->id;
-		$tahun_id = Tahun::where('tahun',date("Y"))->first()->id;
+		$tahun_id = Tahun::where('tahun',$tahun)->first()->id;
+		// $tahun_id = Tahun::where('tahun',date("Y"))->first()->id;
 		$data['jmlProgram'] = Program::where('skpd_id',$skpd_id)->where('tahun_id',$tahun_id)->count();
 		$data['jmlKegiatan'] = Kegiatan::where('skpd_id',$skpd_id)->where('tahun_id',$tahun_id)->count();
+		$data['paket_lelang'] = DB::table('paket_lelang')
+		->where('tahun_id',$tahun_id)
+		->where('skpd_id',$skpd_id)
+		->orderBy('id', 'desc')->first();
+		// dd($paket_lelang);
 		return View::make('dashboard.index',$data);
 	}
 
@@ -112,11 +119,15 @@ class DashboardController extends BaseController {
 	}
 
 	public function indexTahunBaru() {
+// $tahun = Tahun::orderBy('id', 'desc')->first();
+// 		$tahunBaru = (int)$tahun->tahun +1;
+// dd($tahunBaru);
+	
 		return View::make('dashboard.indexTahunBaru');
 	}
 
 	public function insertTahunBaru() {
-		$tahun = Tahun::latest()->first();
+		$tahun = Tahun::orderBy('id', 'desc')->first();
 		$tahunBaru = (int)$tahun->tahun + 1;
 		$tahun_id = Tahun::insertGetId(array('tahun'=>$tahunBaru,'anggaran_perubahan'=>0));
 		$Skpd = Skpd::where('id','!=',1)->get();

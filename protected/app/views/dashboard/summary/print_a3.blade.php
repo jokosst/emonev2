@@ -1,63 +1,16 @@
-@extends('layout.dashboardLayout')
-
-@section('content')
-
 <style>
-	#wrapper {min-width: 1200px;}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+td{
+	padding-right: 5px;
+	padding-left: 5px;
+}
 </style>
-
-<h2 class="menu__header">Format A3</h2>
-
-<!-- FORM SORTIR SUMMARY -->
-<form action="" style="margin-bottom: 30px;" class="form-inline" method="GET" role="form" data-toggle="validator">
-
-			
-	<legend>Sortir Summary</legend>
-	<!-- Jika Masuk BUKAN sebagai admin skpd maka ada pilihan memilih SKPD -->
-	
-	@if(Auth::user()->level != 'adminskpd')
-	
-	<div class="form-group">
-		<label for="">Perangkat Daerah</label>
-			<select name="skpd_id" class="form-control" required>
-				<option value="">------ Pilih Perangkat Daerah ----------</option>
-				<!-- Menampilkan Semua SKPD -->
-				@foreach($Skpd as $skpd)
-					<option @if(isset($skpd_id) && $skpd_id == "$skpd->id") selected  @endif value="{{$skpd->id}}">{{$skpd->skpd}}</option>
-				@endforeach
-			</select>
-	</div>
-
-
-	@else
-	
-		<div class="form-group">
-			<label for="">Perangkat Daerah</label>
-		<input type="text" value="{{$Skpd->skpd}}" disabled class="form-control" style="width:500px;">
-			<input type="hidden" name="skpd_id" value="{{$Skpd->id}}">
-		</div>
-	
-	@endif
-	<!-- pilihan memilih Tahun -->
-	
-	<div class="form-group">
-		<label for="">Tahun</label>
-		<select name="tahun_id" class="form-control" required>
-			<option value="">------ Pilih Tahun ----------</option>
-			<!-- Menampilkan Semua Tahun -->
-			@foreach($Tahun as $tahun)
-				<option @if(isset($tahun_id) && $tahun_id == "$tahun->id") selected  @endif value="{{$tahun->id}}">{{$tahun->tahun}}</option>
-			@endforeach
-		</select>
-	
-
-
-<button type="submit" name="pilihan" value="sortir" class="btn btn-primary">Submit</button>
-<button type="submit" name="pilihan" value="print" class="btn btn-warning" ><i class="fa fa-print"></i> Print</button>
-</div>
-</form>
-
-<table border="1" id="table-summary" class="table table-striped">
+<!-- END FORM SORTIR SUMMARY -->
+<h2>Format A3</h2>
+<table>
 	<thead>
 		<tr>
 			<th width="200px" rowspan="3">Lokasi Kegiatan (Kabupaten / Kecamatan)</th>
@@ -261,4 +214,6 @@
 	</tbody>
 </table>
 
-@endsection
+<script>
+		window.print();
+	</script>

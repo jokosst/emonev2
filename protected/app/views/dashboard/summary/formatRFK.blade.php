@@ -147,8 +147,8 @@
 			<th colspan="2">Realisasi Keuangan</th>
 		</tr>
 		<tr>
-			<th>Sebelum</th>
-			<th>Sesudah</th>
+			<th style="width: 110px">Sebelum</th>
+			<th style="width: 110px">Sesudah</th>
 			<th>Rencana</th>
 			<th>Realisasi</th>
 			<th>Tertimbang</th>
@@ -161,52 +161,52 @@
 	<tbody>
         @foreach($KegiatanBtl as $value)
 		<tr>
-			<td colspan="3">{{$value->kegiatan}}</td>
-			<td>{{ "Rp ".number_format($value->pagu_awal,0,',','.'); }}</td>
-			<td>{{ "Rp ".number_format($value->pagu_perubahan,0,',','.'); }}</td>
-			<td>{{ str_replace('.', ',', round(Kegiatan::hitungBobot($skpd_id,$tahun_id,$value->kegiatan),1))  }} %</td>
+			<td colspan="3"  align="left" valign="top">{{$value->kegiatan}}</td>
+			<td align="right">{{ "Rp ".number_format($value->pagu_awal,2,',','.'); }}</td>
+			<td align="right">{{ "Rp ".number_format($value->pagu_perubahan,2,',','.'); }}</td>
+			<td>{{ str_replace('.', ',', round(Kegiatan::hitungBobot($skpd_id,$tahun_id,$value->kegiatan),2))  }} %</td>
 			<!-- <td></td> -->
 			<td>{{ Kegiatan::getRencanaFisik($tahun_id,$bulan_id) }} %</td>
-			<td>{{ str_replace('.', ',', $value->fisik) }} %</td>
-			<td> {{ str_replace('.', ',', round(Kegiatan::hitungTertimbang(Kegiatan::hitungBobot($skpd_id,$tahun_id,$value->kegiatan),$value->fisik),2)) }} %</td>
+			<td>{{ str_replace('.', ',', number_format((float)$value->fisik,2)) }} %</td>
+			<td> {{ str_replace('.', ',', number_format((float)Kegiatan::hitungTertimbang(Kegiatan::hitungBobot($skpd_id,$tahun_id,$value->kegiatan),$value->fisik),2)) }} %</td>
 			
-			<td>{{ "Rp ".number_format($value->pengeluaran,0,',','.'); }}</td>
-			<td>{{ str_replace('.', ',', $value->uang) }} %</td>
+			<td align="right">{{ "Rp ".number_format($value->pengeluaran,2,',','.'); }}</td>
+			<td>{{ str_replace('.', ',', number_format((float)$value->uang,2)) }} %</td>
 		</tr>
 		@endforeach
 		@foreach($Kegiatan as $program => $kegiatan)
-			{{-- */ $head_program = '<td rowspan="' . count( $kegiatan ) . '">' . $program . '</td>'; /* --}}
+			{{-- */ $head_program = '<td rowspan="' . count( $kegiatan ) . '" align="left" valign="top">' . $program . '</td>'; /* --}}
 			@foreach($kegiatan as $key => $value)
 				<tr>
 					{{ $head_program }}
 					<td>{{ $value->kode_anggaran }}</td>
 					<td>{{ $value->kegiatan }}</td>
-					<td>{{ "Rp ".number_format($value->pagu_awal,0,',','.'); }}</td>
-					<td>{{ "Rp ".number_format($value->pagu_perubahan,0,',','.'); }}</td>
-					<td>{{ str_replace('.', ',', round(Kegiatan::hitungBobot($skpd_id,$tahun_id,$value->kegiatan),1))  }} %</td>
+					<td align="right">{{ "Rp ".number_format($value->pagu_awal,2,',','.'); }}</td>
+					<td align="right">{{ "Rp ".number_format($value->pagu_perubahan,2,',','.'); }}</td>
+					<td>{{ str_replace('.', ',', round(Kegiatan::hitungBobot($skpd_id,$tahun_id,$value->kegiatan),2))  }} %</td>
 					<!-- <td></td> -->
-					<td>{{ Kegiatan::getRencanaFisik($tahun_id,$bulan_id) }} %</td>
-					<td>{{ str_replace('.', ',', $value->fisik) }} %</td>
-					<td> {{ str_replace('.', ',', round(Kegiatan::hitungTertimbang(Kegiatan::hitungBobot($skpd_id,$tahun_id,$value->kegiatan),$value->fisik),2)) }} %</td>
+					<td>{{ str_replace('.', ',', number_format((float)Kegiatan::getRencanaFisik($tahun_id,$bulan_id),2)) }} %</td>
+					<td>{{ str_replace('.', ',', number_format((float)$value->fisik,2)) }} %</td>
+					<td> {{ str_replace('.', ',', number_format((float)Kegiatan::hitungTertimbang(Kegiatan::hitungBobot($skpd_id,$tahun_id,$value->kegiatan),$value->fisik),2)) }} %</td>
 					
-					<td>{{ "Rp ".number_format($value->pengeluaran,0,',','.'); }}</td>
-					<td>{{ str_replace('.', ',', $value->uang) }} %</td>
+					<td align="right">{{ "Rp ".number_format($value->pengeluaran,2,',','.'); }}</td>
+					<td>{{ str_replace('.', ',', number_format((float)$value->uang,2)) }} %</td>
 				</tr>
 				{{-- */ $head_program = ''; /* --}}
 			@endforeach
 		@endforeach
 		<tr style="background: #f1f1f1;">
-			<td colspan="3"><b>Total</b></td>
-			<td> {{ "Rp ".number_format(Kegiatan::hitungPaguAwal($skpd_id,$tahun_id),0,',','.'); }} </td>
-			<td> {{ "Rp ".number_format(Kegiatan::hitungPaguPerubahan($skpd_id,$tahun_id),0,',','.'); }} </td>
-			<td> {{ Kegiatan::hitungTotalBobot($skpd_id,$tahun_id).'%' }}</td>
+			<td colspan="3" align="left" valign="top"><b>Total</b></td>
+			<td align="right">{{ "Rp ".number_format(Kegiatan::hitungPaguAwal($skpd_id,$tahun_id),2,',','.'); }} </td>
+			<td align="right"> {{ "Rp ".number_format(Kegiatan::hitungPaguPerubahan($skpd_id,$tahun_id),2,',','.'); }} </td>
+			<td> {{ str_replace('.', ',', number_format((float)Kegiatan::hitungTotalBobot($skpd_id,$tahun_id),2)) }}%</td>
 			<!-- <td></td> -->
 			<td></td>
-			<td> {{ str_replace('.', ',', round(Kegiatan::hitungTotalFisik($skpd_id, $tahun_id, $bulan_id),2) .'%') }} </td>
-			<td> {{ str_replace('.', ',', round(Kegiatan::hitungTotalTertimbang($skpd_id, $tahun_id, $bulan_id),2) .'%') }} </td>
+			<td> {{ str_replace('.', ',', number_format((float)Kegiatan::hitungTotalFisik($skpd_id, $tahun_id, $bulan_id),2) .'%') }} </td>
+			<td> {{ str_replace('.', ',', number_format((float)Kegiatan::hitungTotalTertimbang($skpd_id, $tahun_id, $bulan_id),2) .'%') }} </td>
 			
-			<td> {{ "Rp ".number_format(Kegiatan::hitungTotalPengeluaran($skpd_id,$tahun_id, $bulan_id),0,',','.'); }} </td>
-			<td> {{ str_replace('.', ',', round(Kegiatan::hitungTotalPengeluaran($skpd_id,$tahun_id, $bulan_id) / Kegiatan::hitungPaguSkpd($skpd_id,$tahun_id) * 100, 2).' %') }}  </td>
+			<td align="right"> {{ "Rp ".number_format(Kegiatan::hitungTotalPengeluaran($skpd_id,$tahun_id, $bulan_id),2,',','.'); }} </td>
+			<td> {{ str_replace('.', ',', number_format((float)Kegiatan::hitungTotalPengeluaran($skpd_id,$tahun_id, $bulan_id) / Kegiatan::hitungPaguSkpd($skpd_id,$tahun_id) * 100, 2).' %') }}  </td>
 			
 		</tr>
 	</tbody>

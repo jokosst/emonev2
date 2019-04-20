@@ -12,6 +12,81 @@ class SummaryController extends BaseController {
 	public function indexSummary() {
 		return View::make('dashboard.summary.indexSummary');
 	}
+	public function tabel1() {
+		$pilihan = Input::get('pilihan');
+		$skpd_id = Auth::user()->pegawai->skpd->id;
+		$tahun_id = Tahun::where('tahun',date("Y"))->first()->id;
+
+		if(Input::has('skpd_id') && Input::has('tahun_id')) {
+			$skpd_id = Input::get('skpd_id');
+			$tahun_id = Input::get('tahun_id');
+		}
+
+		$data['tahun_id'] = $tahun_id;
+		$data['skpd_id'] = $skpd_id;
+		$data['Tahun'] = Tahun::orderBy('id', 'DESC')->get();
+		$data['Skpd'] = Skpd::getSkpd($skpd_id);
+
+		//metode pilihan
+		$e_purchasing = "e-purchasing";
+		$pengadaan_langsung = "pengadaan-langsung";
+		$penunjukan_langsung = "penunjukan-langsung";
+		$seleksi = "seleksi";
+		$tender = "tender";
+		$tender_cepat = "tender-cepat";
+$data['Tender'] = DB::table('daftar_paket')
+->select('daftar_paket.*','lokasi.*','pegawai.*')
+->leftjoin('pegawai','pegawai.id','=','daftar_paket.pegawai_id')
+->leftjoin('lokasi','lokasi.id','=','daftar_paket.lokasi_id')
+->where('daftar_paket.skpd_id','=',$skpd_id)
+->where('daftar_paket.tahun_id','=',$tahun_id)
+->where('daftar_paket.metode','=',$tender)->get();
+
+$data['Pengadaan_langsung'] = DB::table('daftar_paket')
+->select('daftar_paket.*','lokasi.*','pegawai.*')
+->leftjoin('pegawai','pegawai.id','=','daftar_paket.pegawai_id')
+->leftjoin('lokasi','lokasi.id','=','daftar_paket.lokasi_id')
+->where('daftar_paket.skpd_id','=',$skpd_id)
+->where('daftar_paket.tahun_id','=',$tahun_id)
+->where('daftar_paket.metode','=',$pengadaan_langsung)->get();
+
+$data['Penunjukan_langsung'] = DB::table('daftar_paket')
+->select('daftar_paket.*','lokasi.*','pegawai.*')
+->leftjoin('pegawai','pegawai.id','=','daftar_paket.pegawai_id')
+->leftjoin('lokasi','lokasi.id','=','daftar_paket.lokasi_id')
+->where('daftar_paket.skpd_id','=',$skpd_id)
+->where('daftar_paket.tahun_id','=',$tahun_id)
+->where('daftar_paket.metode','=',$penunjukan_langsung)->get();
+$data['Seleksi'] = DB::table('daftar_paket')
+->select('daftar_paket.*','lokasi.*','pegawai.*')
+->leftjoin('pegawai','pegawai.id','=','daftar_paket.pegawai_id')
+->leftjoin('lokasi','lokasi.id','=','daftar_paket.lokasi_id')
+->where('daftar_paket.skpd_id','=',$skpd_id)
+->where('daftar_paket.tahun_id','=',$tahun_id)
+->where('daftar_paket.metode','=',$seleksi)->get();
+$data['Tender_cepat'] = DB::table('daftar_paket')
+->select('daftar_paket.*','lokasi.*','pegawai.*')
+->leftjoin('pegawai','pegawai.id','=','daftar_paket.pegawai_id')
+->leftjoin('lokasi','lokasi.id','=','daftar_paket.lokasi_id')
+->where('daftar_paket.skpd_id','=',$skpd_id)
+->where('daftar_paket.tahun_id','=',$tahun_id)
+->where('daftar_paket.metode','=',$tender_cepat)->get();
+$data['E_purchasing'] = DB::table('daftar_paket')
+->select('daftar_paket.*','lokasi.*','pegawai.*')
+->leftjoin('pegawai','pegawai.id','=','daftar_paket.pegawai_id')
+->leftjoin('lokasi','lokasi.id','=','daftar_paket.lokasi_id')
+->where('daftar_paket.skpd_id','=',$skpd_id)
+->where('daftar_paket.tahun_id','=',$tahun_id)
+->where('daftar_paket.metode','=',$e_purchasing)->get();
+if($pilihan == 'print'){
+	return View::make('dashboard.summary.print-a1',$data);
+}else{
+	return View::make('dashboard.summary.tabel1',$data);
+}
+		
+	}
+	
+	
 
 	public function formatA1() {
 		// $skpd_id = 22;
@@ -67,6 +142,7 @@ class SummaryController extends BaseController {
 	}
 
 	public function formatA2() {
+		$pilihan = Input::get('pilihan');
 		$tahun_id = Tahun::where('tahun',date("Y"))->first()->id;
 		if(Input::has('tahun_id')) {
 			$tahun_id = Input::get('tahun_id');
@@ -81,10 +157,16 @@ class SummaryController extends BaseController {
 		$data['paguBlnp'] = DB::table('kegiatan')->where('jenis_belanja','bl')->where('tahun_id',$tahun_id)->sum('blnp');
 		$data['barangjasa'] = DB::table('daftar_paket')->where('jenis_belanja_paket','barang-jasa')->where('tahun_id',$tahun_id)->sum('nilai_pagu_paket');
 		$data['modal'] = DB::table('daftar_paket')->where('jenis_belanja_paket','modal')->where('tahun_id',$tahun_id)->sum('nilai_pagu_paket');
-		return View::make('dashboard.summary.formatA2',$data);
+		
+		if($pilihan == 'print'){
+	return View::make('dashboard.summary.print_a2',$data);
+}else{
+	return View::make('dashboard.summary.formatA2',$data);
+}
 	}
 
 	public function formatA3() {
+		$pilihan = Input::get('pilihan');
 		$skpd_id = Auth::user()->pegawai->skpd->id;
 		$tahun_id = Tahun::where('tahun',date("Y"))->first()->id;
 		$Skpd = Skpd::getSkpd($skpd_id);
@@ -105,7 +187,9 @@ class SummaryController extends BaseController {
 		$Lokasi = $summary->hitung_total_lokasi($skpd_id,$tahun_id);
 
 		// print_r($data['total_paket'][0]);
-		return View::make('dashboard.summary.formatA3')
+		
+					if($pilihan == 'print'){
+	return View::make('dashboard.summary.print_a3')
 					->with(['total_paket'=>$total_paket[0],
 							'BTL'=>$BTL[0],
 							'BTLP'=>$BTLP[0],
@@ -117,9 +201,25 @@ class SummaryController extends BaseController {
 							'Tahun'=>$Tahun,
 							'tahun_id'=>$tahun_id,
 							'skpd_id'=>$skpd_id]);
+}else{
+	return View::make('dashboard.summary.formatA3')
+					->with(['total_paket'=>$total_paket[0],
+							'BTL'=>$BTL[0],
+							'BTLP'=>$BTLP[0],
+							'BL'=>$BL[0],
+							'BLP'=>$BLP[0],
+							'BLNP'=>$BLNP[0],
+							'Lokasi'=>$Lokasi,
+							'Skpd'=>$Skpd,
+							'Tahun'=>$Tahun,
+							'tahun_id'=>$tahun_id,
+							'skpd_id'=>$skpd_id]);
+}
 	}
+	
 
 	public function formatA4() {
+		$pilihan = Input::get('pilihan');
 		$skpd_id = Auth::user()->pegawai->skpd->id;
 		$tahun_id = Tahun::where('tahun',date("Y"))->first()->id;
 		$Skpd = Skpd::getSkpd($skpd_id);
@@ -136,7 +236,9 @@ class SummaryController extends BaseController {
 		$konsultan = $summary->formatA4($skpd_id,$tahun_id,'konsultan-supervisi');
 		$lainnya = $summary->formatA4($skpd_id,$tahun_id,'lainnya');
 		// die();
-		return View::make('dashboard.summary.formatA4')
+		
+		if($pilihan == 'print'){
+	return View::make('dashboard.summary.print_a4')
 					->with(['konstruksi'=>$konstruksi,
 							'barang'=>$barang,
 							'konsultan'=>$konsultan,
@@ -145,9 +247,21 @@ class SummaryController extends BaseController {
 							'Tahun'=>$Tahun,
 							'tahun_id'=>$tahun_id,
 							'skpd_id'=>$skpd_id]);
+}else{
+	return View::make('dashboard.summary.formatA4')
+					->with(['konstruksi'=>$konstruksi,
+							'barang'=>$barang,
+							'konsultan'=>$konsultan,
+							'lainnya'=>$lainnya,
+							'Skpd'=>$Skpd,
+							'Tahun'=>$Tahun,
+							'tahun_id'=>$tahun_id,
+							'skpd_id'=>$skpd_id]);
+}
 	}
 
 	public function formatB() {
+		$pilihan = Input::get('pilihan');
 		$skpd_id = Auth::user()->pegawai->skpd->id;
 		$tahun_id = Tahun::where('tahun',date("Y"))->first()->id;
 		$Skpd = Skpd::getSkpd($skpd_id);
@@ -164,7 +278,10 @@ class SummaryController extends BaseController {
 		$konsultan = $summary->formatB($skpd_id,$tahun_id,'konsultan-supervisi');
 		$lainnya = $summary->formatB($skpd_id,$tahun_id,'lainnya');
 
-		return View::make('dashboard.summary.formatB')
+		
+
+					if($pilihan == 'print'){
+	return View::make('dashboard.summary.print_b')
 					->with(['konstruksi'=>$konstruksi,
 							'barang'=>$barang,
 							'konsultan'=>$konsultan,
@@ -173,9 +290,22 @@ class SummaryController extends BaseController {
 							'skpd_id'=>$skpd_id,
 							'Tahun'=>$Tahun,
 							'Skpd'=>$Skpd]);
+}else{
+	return View::make('dashboard.summary.formatB')
+					->with(['konstruksi'=>$konstruksi,
+							'barang'=>$barang,
+							'konsultan'=>$konsultan,
+							'lainnya'=>$lainnya,
+							'tahun_id'=>$tahun_id,
+							'skpd_id'=>$skpd_id,
+							'Tahun'=>$Tahun,
+							'Skpd'=>$Skpd]);
+}
 	}
+	
 
 	public function formatD() {
+		$pilihan = Input::get('pilihan');
 		$skpd_id = Auth::user()->pegawai->skpd->id;
 		$tahun_id = Tahun::where('tahun',date("Y"))->first()->id;
 		$Skpd = Skpd::getSkpd($skpd_id);
@@ -188,15 +318,27 @@ class SummaryController extends BaseController {
 
 		$summary = new SummaryAgain;
 		$summary = $summary->formatD($skpd_id,$tahun_id);
-		return View::make('dashboard.summary.formatD')
+		
+					if($pilihan == 'print'){
+	return View::make('dashboard.summary.print_d')
 					->with(['tahun_id'=>$tahun_id,
 							'skpd_id'=>$skpd_id,
 							'Tahun'=>$Tahun,
 							'Skpd'=>$Skpd,
 							'summary'=>$summary]);
+}else{
+	return View::make('dashboard.summary.formatD')
+					->with(['tahun_id'=>$tahun_id,
+							'skpd_id'=>$skpd_id,
+							'Tahun'=>$Tahun,
+							'Skpd'=>$Skpd,
+							'summary'=>$summary]);
+}
 	}
+	
 
 	public function formatDK1() {
+		$pilihan = Input::get('pilihan');
 		$skpd_id = Auth::user()->pegawai->skpd->id;
 		$tahun_id = Tahun::where('tahun',date("Y"))->first()->id;
 		$Skpd = Skpd::getSkpd($skpd_id);
@@ -209,24 +351,83 @@ class SummaryController extends BaseController {
 
 		$summary = new SummaryAgain;
 		$summary = $summary->formatDK1($skpd_id,$tahun_id);
-		return View::make('dashboard.summary.formatDK1')
+		
+
+					if($pilihan == 'print'){
+	return View::make('dashboard.summary.print_dk1')
 					->with(['tahun_id'=>$tahun_id,
 							'skpd_id'=>$skpd_id,
 							'Tahun'=>$Tahun,
 							'Skpd'=>$Skpd,
 							'summary'=>$summary]);
+}else{
+	return View::make('dashboard.summary.formatDK1')
+					->with(['tahun_id'=>$tahun_id,
+							'skpd_id'=>$skpd_id,
+							'Tahun'=>$Tahun,
+							'Skpd'=>$Skpd,
+							'summary'=>$summary]);
+}
 	}
+	
+	public function tabel2() {
+		$pilihan = Input::get('pilihan');
+		$skpd_id = Auth::user()->pegawai->skpd->id;
+		$tahun_id = Tahun::where('tahun',date("Y"))->first()->id;
+		if($skpd_id == 1) {
+			$data['summary'] = 0;
+		}
+
+		if(Input::has('skpd_id') && Input::has('tahun_id')) {
+			$skpd_id = Input::get('skpd_id');
+			$tahun_id = Input::get('tahun_id');
+			$data['summary'] = 1;
+		}
+		$data['Tahun'] = Tahun::latest()->get();
+		$Skpd = Skpd::getSkpd($skpd_id);
+		$data['skpd_id'] = $skpd_id;
+		$data['tahun_id'] = $tahun_id;
+		$Tahun = Tahun::latest()->get();
+		$summary = new SummaryAgain;
+		$summary = $summary->formatDK1($skpd_id,$tahun_id);
+ 
+
+if($pilihan == 'print'){
+	return View::make('dashboard.summary.print_dk2')->with(['tahun_id'=>$tahun_id,
+							'skpd_id'=>$skpd_id,
+							'Tahun'=>$Tahun,
+							'Skpd'=>$Skpd,
+							'summary'=>$summary]);
+}else{
+	return View::make('dashboard.summary.tabel2')->with(['tahun_id'=>$tahun_id,
+							'skpd_id'=>$skpd_id,
+							'Tahun'=>$Tahun,
+							'Skpd'=>$Skpd,
+							'summary'=>$summary]);
+}
+	}
+	
 
 	public function formatRFK() {
 		$skpd_id = Auth::user()->pegawai->skpd->id;
 		$bulan = date('m');
 		$tahun_id = Tahun::where('tahun',date("Y"))->first()->id;
+		//cek dulu
+		$adminskpd = "adminskpd";
+		$operator = Auth::user()->level;
+		$tabel_realisasi = DB::table('realisasi_kegiatan')->where('tahun_id',$tahun_id)->get();
+		if(empty($tabel_realisasi) && $adminskpd == $operator){
+			echo"<script>alert('Silahkan Isi Kegiatan Dulu');window.location='../kegiatan/create'</script>";
+		}else{
 
-		if(Input::has('skpd_id') && Input::has('tahun_id') && Input::has('bulan_id')) {
+			if(Input::has('skpd_id') && Input::has('tahun_id') && Input::has('bulan_id')) {
 			$skpd_id = Input::get('skpd_id');
 			$tahun_id = Input::get('tahun_id');
 			$bulan = Input::get('bulan_id');
 		}
+		// else{
+		// 	echo"<script>alert('Data Kosong, Admin Skpd Belum Mengisi Kegiatan');window.location='../summary/format-fiskeu'</script>";
+		// }
 
 		$Skpd = DB::table('skpd')->select('id','skpd')->where('id','!=',1)->get();
 		
@@ -261,6 +462,7 @@ class SummaryController extends BaseController {
 		{
 			$Kegiatan = array();
          $kegiatanBtl = array();
+         
 		}
 		
 
@@ -274,6 +476,10 @@ class SummaryController extends BaseController {
 		$data['skpd_id'] = $skpd_id;
 		$data['tahun_id'] = $tahun_id;
 		$data['bulan_id'] = $bulan;
+
+		//tutup else jika ada data tahun ini
+		}
+		
 
 		return View::make('dashboard.summary.formatRFK', $data);
 	}

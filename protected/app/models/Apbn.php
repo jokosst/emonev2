@@ -18,6 +18,9 @@ class Apbn extends Eloquent {
 	public function lokasi() {
 		return $this->belongsTo('Lokasi');
 	}
+	public function skpd() {
+			return $this->belongsTo('skpd');
+		}
 
 	
 

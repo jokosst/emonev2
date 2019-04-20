@@ -69,9 +69,19 @@ class PegawaiController extends BaseController {
 
 	public function changePassword() {
 		$id = Input::get('id_operator');
-		$password = Input::get('password');
+		$userdata = array(
+				'username' => Input::get('username'),
+				'password' => Input::get('password_lama')
+			);
+		if (Auth::attempt($userdata)) {
+        $password = Input::get('password');
 		DB::table('operator')->where('id',$id)->update(array('password'=>Hash::make($password)));
-		return Redirect::back();
+		return Redirect::back()->with('konf', 'Password Berhasil di Ubah');
+			} else {            	
+				return Redirect::back()->with('konf', 'Password Lama anda SALAH, Proses GAGAL');
+
+			} 
+		
 	}
 
 	public function hapusPegawai($id) {

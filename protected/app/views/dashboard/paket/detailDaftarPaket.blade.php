@@ -6,7 +6,7 @@
 	<div class="content__block content__detail">
 		<div class="row">
 			<div class="col-md-2">
-				<p><b>Nama Perangkat Daerah</b></p>
+				<p><b>Perangkat Daerah</b></p>
 				<p><b>Tahun Anggaran</b></p>
 				<p><b>Nama Program</b></p>
 				<p><b>Nama Kegiatan</b></p>
@@ -19,8 +19,7 @@
 				<p><b>Hasil Kegiatan</b></p>
 				<p><b>Kualifikasi Lelang</b></p>
 				<p><b>Jenis Belanja</b></p>
-				<p><b>Metode</b></p>
-				<p><b>pemilihan penyedia</b></p>
+				<p><b>Pemilihan penyedia</b></p>
 				<p><b>Jenis Pengadaan</b></p>
 				<p><b>Lokasi</b></p>
 			</div>
@@ -39,11 +38,10 @@
 				<p><span>:</span> {{Convert::ubah_tanda_strip($paket->kualifikasi_lelang)}}</p>
 				<p><span>:</span> {{Convert::ubah_tanda_strip($paket->jenis_belanja_paket)}}</p>
 				<p><span>:</span> {{Convert::ubah_tanda_strip($paket->metode)}}</p>
-				<p><span>:</span> {{Convert::ubah_tanda_strip($paket->pemilihan_penyedia)}}</p>
 				<p><span>:</span> {{Convert::ubah_tanda_strip($paket->jenis_pengadaan)}}</p>
 				<p><span>:</span> {{Convert::ubah_tanda_strip($paket->lokasi->lokasi)}}</p>
 			</div>
-			<a href="{{URL::to('emonevpanel/daftar-paket/edit/'.$paket->id)}}" class="btn btn-warning" style="margin-top: 20px; margin-left:15px;">Edit Daftar Paket</a>
+			<a href="{{URL::to('emonevpanel/daftar-paket/edit/'.$paket->id)}}" class="btn btn-warning" style="margin-top: 20px;margin-bottom: 10px; margin-left:15px;">Edit Daftar Paket</a>
 		</div>
 	</div>
 @endsection

@@ -12,7 +12,9 @@ class Tahun extends Eloquent {
 	public function Lelang() {
 		return $this->hasMany('Lelang');
 	}
-
+public function Apbn() {
+		return $this->hasMany('Apbn');
+	}
 }
 
  ?>

@@ -1,7 +1,7 @@
 @extends('layout.dashboardLayout')
 
 @section('content')
-	<h2 class="menu__header">Paket Tender Perangkat Daerah</h2>
+	<h2 class="menu__header">Progres Paket Perangkat Daerah</h2>
 	<!-- FORM ADD PAKET LELANG -->
 	<form action="" method="POST" role="form" data-toggle="validator">
 		<legend>Tambah Paket Tender Perangkat Daerah</legend>
@@ -66,7 +66,10 @@
 		<div class="form-group">
 			<label for="">Paket</label>
 			<select name="paket_id" class="form-control selectpicker" data-live-search="true" id="changePaket">
-				<!-- Data tarik data pake json -->
+				<option value="">----- Pilih Paket-----</option>
+				@foreach($Daftar_paket as $daftar_paket)
+				<option value="{{$daftar_paket->id}}">{{$daftar_paket->paket}}</option>
+				@endforeach
 			</select>
 			<input type="hidden" id="limit_anggaran">
 		</div>
@@ -90,13 +93,13 @@
 			<div class="col-md-12">
 				<div class="form-group">
 					<label for="">Nomor Kontrak</label>
-					<input type="text" name="nomor_kontak" class="form-control" placeholder="Nomor Kontak" required>
+					<input type="text" name="nomor_kontrak" class="form-control" placeholder="Nomor Kontrak" required>
 				</div>
 			</div>
 			<div class="col-md-12">
 				<div class="form-group">
 					<label for="">Tanggal BAST</label>
-					<input type="date" name="tgl_bast" class="form-control" value="" placeholder="Tanggal BAST">
+					<input type="text" name="tgl_bast" class="datepicker form-control" placeholder="Tanggal BAST">
 				</div>
 			</div>
 			<div class="col-md-12">
@@ -150,7 +153,7 @@
 	<div class="col-md-12">
 			<div class="form-group" id="rekanan2">
 				<label for="">Rekanan</label>
-				<input type="text" disabled name="rekanan" class="form-control">
+				<input type="text" name="rekanan" disabled class="form-control">
 			</div>
 		</div>
 	
@@ -188,7 +191,7 @@
 		</div>
 	
 		
-		
+		<input type="hidden" name="lokasi_id" value="1">
 		<div class="col-md-12">
 			<div class="form-group">
 		<button type="submit" class="btn btn-primary btn-lg">Submit</button>
@@ -202,8 +205,12 @@
 @section('script')
 <!-- Plugin Mask Money -->
 <script type="text/javascript" src="{{URL::to('source/plugins/jquery-maskmoney/dist/jquery.maskMoney.min.js')}}"></script>
+<script type="text/javascript" src="{{URL::to('source/plugins/datepicker/js/bootstrap-datepicker.js')}}"></script>
 <!-- Custom -->
 <script>
+	$('.datepicker').datepicker({
+		format: "dd-mm-yyyy"
+	});
 	$('.setMoney').maskMoney({prefix:'Rp ', thousands:'.', decimal:',', allowZero: true, precision:0});
 	$("select[name='jenis_proses_lelang']").change(function() {
 		var jenis = $(this).val();

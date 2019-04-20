@@ -54,23 +54,23 @@
       </tr>
     </thead>
     <tbody>
-     
+
+     @foreach($Apbn as $key=>$apbn)
 	      	<tr>
-	      		<td></td>
-	      		<td></td>
-	      		<td></td>
-	      		<td></td>
-	      		<td></td>
-	    			<td><select class="form-control" data-id="" onchange="actionKegiatan(this)">
+	      		<td>{{$key+1}}</td>
+	      		<td>{{$apbn->kegiatan}}</td>
+	      		<td>{{$apbn->program}}</td>
+	      		<td>{{$apbn->anggaran}}</td>
+	      		<td>{{$apbn->lokasi}}</td>
+	    			<td><select class="form-control" data-id="{{$apbn->id}}" onchange="actionApbn(this)">
 	    				<option value="">--Aksi--</option>
 	          	<option value="detail">Detail</option>
 	          	<option value="edit">Edit</option>
 	          	<option value="hapus">Hapus</option>
 	          </select></td>
-	      	</tr>
-				
-     
-    </tbody>
+	      	</tr>				
+     @endforeach
+
 	</table>
 @endsection
 
@@ -78,8 +78,8 @@
 	<script type="text/javascript">
 		/* Deklarasi Datatable */
 		$('#table_id').DataTable();
-		/* Fungsi Aksi Kegiatan */
-		function actionKegiatan(el){
+		/* Fungsi Aksi Apbn */
+		function actionApbn(el){
 			var id = $(el).attr('data-id');
 			var action = $(el).val();
 			switch(action) {

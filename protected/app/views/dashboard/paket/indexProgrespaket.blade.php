@@ -24,7 +24,7 @@
     <th>Nama Kegiatan</th>
      <th>Nama Rekanan</th>
     <th>Nama Paket</th>
-    <th>Nilai Kontrak</th>
+    <th>Status Kontrak</th>
     <th>Status</th>
     <th width="120px;">HPS</th>
     <th width="120px;">Aksi</th>
@@ -32,13 +32,12 @@
 </thead>
 <tbody>
 	@foreach($Lelang as $key => $lelang)
-	@foreach($Progres as $key => $progres)
 		<tr>
 			<td>{{$key+1}}</td>
     		<td>{{$lelang->kegiatan->kegiatan}}</td>
-    		<td>{{$progres->rekanan}}</td>
+    		<td>{{$lelang->rekanan}}</td>
     		<td>{{$lelang->paket->paket}}</td>
-    		<td>{{ "Rp ".number_format($progres->nilai_kontrak,0,',','.'); }}</td>
+    		<td>{{$lelang->status_kontrak}}</td>
     		<td>{{ucwords(str_replace('-',' ', $lelang->status))}}</td>
     		<td>{{$lelang->hps}}</td>
     		<td><select onchange="actionLelang(this)" data-id="{{$lelang->id}}" class="form-control">
@@ -48,7 +47,6 @@
         	<option value="hapus">Hapus</option>
         </select></td>
 		</tr>
-		@endforeach
 	@endforeach
    </tbody>
 </table>

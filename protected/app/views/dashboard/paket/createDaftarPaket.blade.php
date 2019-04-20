@@ -1,7 +1,6 @@
 @extends('layout.dashboardLayout')
 
 @section('content')
-
 <h2 class="menu__header">Daftar Paket Perangkat Daerah</h2>
 <!-- FORM ADD DAFTAR PAKET -->
 <form action="" method="POST" role="form" data-toggle="validator">
@@ -82,63 +81,56 @@
 	<!-- Input Paket -->
 	<div class="col-md-12">
 	<div class="form-group">
-		<label for="">Paket</label>
-		<input type="text" name="paket" class="form-control" required placeholder="Nama Paket">
+		<label for="">Cari dari SIRUP (Satker)</label>
+<select class="form-control selectpicker" data-live-search="true" onchange="cari_satker()" id="txtsatker">
+				<option value="">----- Pilih Satker-----</option>
+				@foreach($data_satker as $data_satker_sirup)
+				<option value="{{$data_satker_sirup[0]}}">{{$data_satker_sirup[1]}}</option>
+				@endforeach
+			</select>
 	</div>
 </div>
-	<!-- End Input Paket -->
-	<!-- ROW -->
+	<div class="col-md-12">
+	<div class="form-group" id="hasil_satker">
+		<label for="">Paket</label>
+<input type="text" class="hasil form-control" name="paket">
+	</div>
+</div>
 	
-		<!-- Col-md-6 -->
-		<div class="col-md-12">
-			<!-- Input Pagu -->
+<div id="hasil">
+	<div class="col-md-12">
 			<div class="form-group">
 				<label for="">Pagu Paket</label>
 				<input type="text" class="form-control setMoney" name="pagu_paket" id="pagu" placeholder="Rp" required>
-				<!-- <p class="validation-text">Nilai Inputan Melebihi Pagu</p> -->
 			</div>
-			<!-- END Input Pagu  -->
 		</div>
-		<!-- End Col-md-6 -->
-		<!-- Col-md-6 -->
 		<div class="col-md-12">
-			<!-- Input Kode Anggaran  -->
-			<div class="form-group">
-				<label for="">Kode Anggaran Paket</label>
-				<input type="text" class="form-control" name="kode_anggaran_paket"  placeholder="Kode Anggaran Paket" required>
-			</div>
-			<!-- END Input Kode Anggaran  -->
-		</div>
-		<!-- End Col-md-6 -->
-	
-	<!-- End ROW -->
-	<!-- ROW -->
-	
-		<!-- Col-md-4 -->
-		<div class="col-md-12">
-			<!-- Input Volume -->
 			<div class="form-group">
 				<label for="">Volume</label>
 				<input type="text" name="volume" class="form-control"  placeholder="Volume" required>
 			</div>
-			<!-- END Input Volume  -->
 		</div>
-		<!-- End Col-md-4 -->
-		<!-- Col-md-4 -->
-		<!-- <div class="col-md-4"> -->
-			<!-- Input Satuan Volume -->
-			<!-- <div class="form-group" id="satuanvolume">
-				<label for="">Satuan Volume</label>
-				<input type="text" name="satuan_volume" class="form-control"  placeholder="Satuan Volume" required>
-			</div> -->
-			<!-- END Input Satuan Volume  -->
-		<!-- </div> -->
-		<!-- End Col-md-4 -->
-	
-	<!-- End ROW -->
-	<!-- ROW -->
-	
-		<!-- Col-md-6 -->
+<div class="col-md-12">
+			<div class="form-group" id="hasil_kualifikasi">
+				<label for="">Kualifikasi</label>
+				<select name="kualifikasi_lelang" class="form-control">
+					<option value="kecil">Kecil</option>
+					<option value="non-kecil">Non Kecil</option>
+				</select>
+			</div>
+			
+		</div>
+</div>
+		
+
+
+		<div class="col-md-12">
+			<div class="form-group">
+				<label for="">Kode Anggaran Paket</label>
+				<input type="text" class="form-control" name="kode_anggaran_paket"  placeholder="Kode Anggaran Paket" required>
+			</div>
+		</div>
+
 		<div class="col-md-12">
 			<!-- Input Hasil Kegiatan -->
 			<div class="form-group">
@@ -148,39 +140,35 @@
 					<option value="non-konstruksi">Non Konstruksi</option>
 				</select>
 			</div>
-			<!-- End Input Hasil Kegiatan -->
 		</div>
-		<!-- End Col-md-6 -->
-		<!-- Col-md-6 -->
 		
-				<div class="col-md-12">
-			<!-- Input Kualifikasi Lelang -->
-			<div class="form-group" id="kualifikasi1">
-				<label for="">Kualifikasi</label>
-				<select name="kualifikasi_lelang" class="form-control">
-					<option value="kecil">Kecil</option>
+			
+		
+	<div class="col-md-12">
+			<div class="form-group">
+				<label for="">Metode Pemilihan Penyedia</label>
+				<select name="metode" class="form-control">					
+					<option value="e-purchasing">E-Purchasing</option>
+					<option value="pengadaan-langsung">Pengadaan Langsung</option>
+					<option value="penunjukan-langsung">Penunjukan Langsung</option>				
+					<option value="seleksi">Seleksi</option>
+					<option value="tender">Tender</option>
+					<option value="tender-cepat">Tender Cepat</option>
 				</select>
 			</div>
-			<!-- End Input Kualifikasi Lelang -->
 		</div>
-		<div class="col-md-12">
-			<!-- Input Kualifikasi Lelang -->
-			<div class="form-group" id="kualifikasi2">
-				<label for="">Kualifikasi Lelang</label>
-				<select name="kualifikasi_lelang" class="form-control">
-					<option value="non-kecil">Non Kecil</option>
+			<div class="col-md-12">
+			<div class="form-group">
+				<label for="">Jenis Pengadaan</label>
+				<select name="jenis_pengadaan" class="form-control">
+					<option value="barang">Barang</option>
+					<option value="konstruksi">Konstruksi</option>
+					<option value="konsultan-supervisi">Konsultan / Supervisi</option>
+					<option value="lainnya">Jasa Lainnya</option>
 				</select>
 			</div>
-			<!-- End Input Kualifikasi Lelang -->
 		</div>
-	
 
-		<!-- End Col-md-6 -->
-	
-	<!-- End ROW -->
-	<!-- ROW -->
-	
-		<!-- Col-md-6 -->
 		<div class="col-md-12">
 			<!-- Input Jenis Belanja Paket -->
 			<div class="form-group">
@@ -192,48 +180,7 @@
 			</div>
 			<!-- End Input Jenis Belanja Paket -->
 		</div>
-		<!-- End Col-md-6 -->
-		<!-- Col-md-6 -->
-		<div class="col-md-12">
-			<!-- Input Metode -->
-			<div class="form-group">
-				<label for="">Metode Pemilihan Penyedia</label>
-				<select name="metode" class="form-control">
-					
-					<option value="e-purchasing">E-Purchasing</option>
-					<option value="pengadaan-langsung">Pengadaan Langsung</option>
-					<option value="penunjukan-langsung">Penunjukan Langsung</option>
-					
-					
-					<option value="seleksi">Seleksi</option>
-					<option value="tender">Tender</option>
-					<option value="tender-cepat">Tender Cepat</option>
-				</select>
-			</div>
-			<!-- End Input Metode -->
-		</div>
-		<!-- End Col-md-6 -->
 		
-	
-	<!-- End ROW -->
-	<!-- ROW -->
-	
-		<!-- Col-md-6 -->
-		<div class="col-md-12">
-			<!-- Input Jenis Pengadaan -->
-			<div class="form-group">
-				<label for="">Jenis Pengadaan</label>
-				<select name="jenis_pengadaan" class="form-control">
-					<option value="barang">Barang</option>
-					<option value="konstruksi">Konstruksi</option>
-					<option value="konsultan-supervisi">Konsultan / Supervisi</option>
-					<option value="lainnya">Jasa Lainnya</option>
-				</select>
-			</div>
-			<!-- End Input Jenis Pengadaan -->
-		</div>
-		<!-- End Col-md-6 -->
-		<!-- Col-md-6 -->
 		<div class="col-md-12">
 			<!-- Input lokasi -->
 			<div class="form-group">
@@ -282,20 +229,71 @@
 			}
 		});
 	});
-$("#kualifikasi2").hide();
-$("#satuanvolume").hide();
-/* onjenis pagu  */
+
 	$("#pagu").change(function() {
 		
 		var pagu = Number($(this).val().replace(/[Rp.]+/g,""));
-		if(pagu <= "2500000000") {
-			$("#kualifikasi1").show();
-			$("#kualifikasi2").hide();
+		$('#hasil_kualifikasi').empty();
+      if(pagu !=""){
+        $("#hasil_kualifikasi").html()
+        $.ajax({
+          data:{'pagu': pagu},
+          success: function(data) {
+       if(pagu <= "2500000000") {
+			$("#hasil_kualifikasi").html("<label for=''>Kualifikasi</label><select name='kualifikasi_lelang' class='form-control'><option value='kecil'>Kecil</option></select>");
 		} else {
-			$("#kualifikasi1").hide();
-			$("#kualifikasi2").show();
+			$("#hasil_kualifikasi").html("<label for=''>Kualifikasi</label><select name='kualifikasi_lelang' class='form-control'><option value='non-kecil'>Non Kecil</option></select>");
 		}
+          	
+      },
+      error: function(response) {
+        return alert("ERROR:" + response.responseText);
+      }
+        });
+      }
+		
+
 	});
+
+
+	function cari(){
+      var strpaket = $("#txtpaket").val();
+      $('#hasil').empty();
+      if(strpaket !=""){
+        $("#hasil").html()
+        $.ajax({
+          type:"post",
+          url:"{{URL::to('/emonevpanel/cari_paket')}}",
+          data:{'strpaket': strpaket},
+          success: function(data) {
+          	// $("#hasil").html(data);
+          	$("#hasil").html(data);
+      },
+      error: function(response) {
+        return alert("ERROR:" + response.responseText);
+      }
+        });
+      }
+    };
+function cari_satker(){
+      var strsatker = $("#txtsatker").val();
+      $('#hasil_satker').empty();
+      if(strsatker !=""){
+        $("#hasil_satker").html()
+        $.ajax({
+          type:"post",
+          url:"{{URL::to('/emonevpanel/cari_satker')}}",
+          data:{'strsatker': strsatker},
+          success: function(data) {
+          	$("#hasil_satker").html(data);
+      },
+      error: function(response) {
+        return alert("ERROR:" + response.responseText);
+      }
+        });
+      }
+    };
+
 </script>
 
 @stop

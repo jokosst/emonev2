@@ -4,7 +4,7 @@
 	<h2 class="menu__header">Summary</h2>
 	<div class="row">
 		<div class="col-md-3">
-			<a href="{{URL::to('emonevpanel/summary/format-a1')}}"><div class="box__section">
+			<a href="{{URL::to('emonevpanel/summary/tabel1')}}"><div class="box__section">
 				<h3>Format A1</h3>
 			</div></a>
 		</div>
@@ -41,9 +41,16 @@
 			</div></a>
 		</div>
 		<div class="col-md-3">
+			<a href="{{URL::to('emonevpanel/summary/tabel2')}}"><div class="box__section">
+				<h3>Format DK2</h3>
+			</div></a>
+		</div>
+		<div class="col-md-3">
 			<a href="{{URL::to('emonevpanel/summary/format-fiskeu')}}"><div class="box__section">
 				<h3>Format RFK</h3>
 			</div></a>
 		</div>
+		
+		
 	</div>
 @endsection

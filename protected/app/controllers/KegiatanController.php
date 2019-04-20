@@ -46,7 +46,9 @@ class KegiatanController extends BaseController {
 		$data['slug_kegiatan'] = Convert::make_slug(Input::get('kegiatan'));
 		$data['blp'] = str_replace(['Rp','.'], '', Input::get('blp'));
 		$data['blnp'] = str_replace(['Rp','.'], '', Input::get('blnp'));
+		$data['blm'] = str_replace(['Rp','.'], '', Input::get('blm'));
 		$data['btlp'] = str_replace(['Rp','.'], '', Input::get('btlp'));
+		$data['btlnp'] = str_replace(['Rp','.'], '', Input::get('btlnp'));
 
 		$kegiatan_id = Kegiatan::insertGetId($data);
 

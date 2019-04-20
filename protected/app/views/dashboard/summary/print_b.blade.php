@@ -1,75 +1,29 @@
-@extends('layout.dashboardLayout')
-
-@section('content')
-
 <style>
-	#wrapper {min-width: 1400px;}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+td{
+	padding-right: 5px;
+	padding-left: 5px;
+}
 </style>
-
-<h2 class="menu__header">Format B</h2>
-<!-- FORM SORTIR SUMMARY -->
-<form action="" style="margin-bottom: 30px;" class="form-inline" method="GET" role="form" data-toggle="validator">
-
-			
-	<legend>Sortir Summary</legend>
-	<!-- Jika Masuk BUKAN sebagai admin skpd maka ada pilihan memilih SKPD -->
-	
-	@if(Auth::user()->level != 'adminskpd')
-	
-	<div class="form-group">
-		<label for="">Perangkat Daerah</label>
-			<select name="skpd_id" class="form-control" required>
-				<option value="">------ Pilih Perangkat Daerah ----------</option>
-				<!-- Menampilkan Semua SKPD -->
-				@foreach($Skpd as $skpd)
-					<option @if(isset($skpd_id) && $skpd_id == "$skpd->id") selected  @endif value="{{$skpd->id}}">{{$skpd->skpd}}</option>
-				@endforeach
-			</select>
-	</div>
-
-
-	@else
-	
-		<div class="form-group">
-			<label for="">Perangkat Daerah</label>
-		<input type="text" value="{{$Skpd->skpd}}" disabled class="form-control" style="width:500px;">
-			<input type="hidden" name="skpd_id" value="{{$Skpd->id}}">
-		</div>
-	
-	@endif
-	<!-- pilihan memilih Tahun -->
-	
-	<div class="form-group">
-		<label for="">Tahun</label>
-		<select name="tahun_id" class="form-control" required>
-			<option value="">------ Pilih Tahun ----------</option>
-			<!-- Menampilkan Semua Tahun -->
-			@foreach($Tahun as $tahun)
-				<option @if(isset($tahun_id) && $tahun_id == "$tahun->id") selected  @endif value="{{$tahun->id}}">{{$tahun->tahun}}</option>
-			@endforeach
-		</select>
-	
-
-
-<button type="submit" name="pilihan" value="sortir" class="btn btn-primary">Submit</button>
-<button type="submit" name="pilihan" value="print" class="btn btn-warning" ><i class="fa fa-print"></i> Print</button>
-</div>
-</form>
+<h2>Format B</h2>
 <!-- END FORM SORTIR SUMMARY -->
 <div class="keterangan-warna" style="margin-bottom:20px;">
 	<h4>Keterangan Warna</h4>
-	<span style="background:#2196F3">Biru: Lelang Sudah Selesai</span>
-	<span style="background:#009688">Hijau: Lelang Sedang Berjalan</span>
-	<span style="background:#FFAB00">Kuning: Belum Siap Lelang</span>
-	<span style="background:#795548">Coklat: Lelang Ulang</span>
-	<span style="background:#F44336">Merah: Lelang Gagal</span>
+	<span style="background:#2196F3">B: Lelang Sudah Selesai</span>
+	<span style="background:#009688">H: Lelang Sedang Berjalan</span>
+	<span style="background:#FFAB00">K: Belum Siap Lelang</span>
+	<span style="background:#795548">C: Lelang Ulang</span>
+	<span style="background:#F44336">M: Lelang Gagal</span>
 </div>
-<table class="table table-striped" border="1" id="table-summary">
+<table>
 	<thead>
 		<tr>
 			<th rowspan="2" style="width:150px;">Paket Pekerjaan</th>
-			<th rowspan="2" style="width: 110px">Pagu <br /> Rp.</th>
-			<th rowspan="2" style="width: 110px">HPS <br /> Rp.</th>
+			<th rowspan="2" style="width: 130px">Pagu <br /> Rp.</th>
+			<th rowspan="2" style="width: 130px">HPS <br /> Rp.</th>
 			<th rowspan="2">Kualifikasi <br /> (Kecil / Non Kecil)</th>
 			<th rowspan="2">Kode Bidang / <br /> Sub Bidang</th>
 			<th rowspan="2">Produk Akhir</th>
@@ -97,8 +51,8 @@
 		@foreach($konstruksi as $key => $value)
 		<tr>
 			<td>{{$value->paket}}</td>
-			<td style="width: 95px;" align="right">{{ "Rp ".number_format($value->nilai_pagu_paket,2,',','.'); }}</td>
-			<td style="width: 95px;" align="right">{{ "Rp ".number_format($value->nilai_hps,2,',','.')}}</td>
+			<td align="right">{{ "Rp ".number_format($value->nilai_pagu_paket,2,',','.'); }}</td>
+			<td align="right">{{ "Rp ".number_format($value->nilai_hps,2,',','.')}}</td>
 			<td>{{ Convert::ubah_tanda_strip($value->kualifikasi_lelang) }}</td>
 			<td>{{ $value->kode_bidang }}</td>
 			<td>{{ $value->produk_akhir }}</td>
@@ -193,4 +147,6 @@
 	</tbody>
 </table>
 
-@endsection
+<script>
+		window.print();
+	</script>

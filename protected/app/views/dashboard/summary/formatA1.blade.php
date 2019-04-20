@@ -49,7 +49,7 @@
 		<tr>
 			<th style="width:200px;" rowspan="2">Kegiatan</th>
 			<th rowspan="2" colspan="2">Volume</th>
-			<th style="width:100px;" rowspan="2">Jumlah<br>(Rp)</th>
+			<th style="width:105px;" rowspan="2">Jumlah<br>(Rp)</th>
 			<th rowspan="2" class="rotate"><span>Hasil<br>(N/K)</span></th>
 			<th rowspan="2" class="rotate" style="padding-top:80px;"><span style="width:35px;">Jenis Belanja<br>( BTLP/BLP/BJ/BM )</span></th>
 			<th rowspan="2" class="rotate" style="padding-top:70px;"><span style="width:75px;">Metode Pengadaan<br>(LU/SU/LT/PML/LS/SS/PL/<br>PK/SWAT/SWAP/<br>SY/E-Purchasing)</span></th>
