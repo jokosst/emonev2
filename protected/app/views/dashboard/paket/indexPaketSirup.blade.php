@@ -63,40 +63,33 @@
 	    		<td>Rp. {{number_format($data[2])}}</td>
 	    		<td>{{$data[3]}}</td>
 	    		<td align="center">{{$data[4]}}</td>
-	    		<td><select class="form-control" data-id="{{$data[0]}}" onchange="actionPaket(this)">
-	  				<option value="">--Aksi--</option>
-	        	<option value="detail">Detail</option>
-	        </select></td>
-	    	</tr>
-	    	@endforeach
+	    		<td><a class="btn btn-warning btn-fill btn-xs" href="paket_sirup/detail/{{$data[0]}}" data-toggle="tooltip" data-placement="bottom" title="Detail"><i class="fa fa-search"></i></a>
+	          	<a class="btn btn-success btn-fill btn-xs" href="paket_sirup/edit/{{$data[0]}}" data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fa fa-pencil"></i></a>
+           <a class="btn btn-danger btn-fill btn-xs" href="paket_sirup/hapus/{{$data[0]}}" data-toggle="tooltip" data-placement="bottom" title="Hapus" onclick="return confirmSubmit()"><i class="fa fa-trash"></i></a>
+                            
+                               </td> 
+	      	</tr>
+				@endforeach
+				<script>
+                  function confirmSubmit()
+                    {
+                        var agree=confirm("Apakah anda yakin akan menghapus Data ini?");
+                        if (agree)
+                            return true ;
+                        else
+                            return false ;
+                    }
+                </script>
     	
     </tbody>
 	</table>
 @endsection
 
 @section('script')
-	<script type="text/javascript">
-		/* Deklarasi Datatable */
+	<script>
 		$('#table_id').DataTable();
-		/* Fungsi Aksi Kegiatan */
-		function actionPaket(el){
-			var id = $(el).attr('data-id');
-			var action = $(el).val();
-			switch(action) {
-				case "detail":
-					window.location = baseUrl+"/paket_sirup/detail/"+id;
-					break;
-				case "edit":
-					window.location = baseUrl+"/sirup-paket/edit/"+id;
-					break;
-				case "hapus":
-					var c = confirm("Apakah Anda ingin menghapus sirup paket ini?");
-					if (c == true) {
-						window.location = baseUrl+"/sirup-paket/hapus/"+id;
-					}
-					return false;
-					break;
-			}
-		}
-	</script>
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();   
+});
+</script>
 @stop

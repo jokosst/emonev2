@@ -5,52 +5,140 @@
 	
 	<div class="content__block content__detail">
 		<div class="row">
-			<div class="col-md-2">
-				<p><b>Kode RUP</b></p>
-				<p><b>Nama Paket </b></p>
-				<p><b>KLDI</b></p>
-				<p><b>Satuan Kerja</b></p>
-				<p><b>Tahun Anggaran</b></p>
-				<p><b>Lokasi Pekerjaan</b></p>
-				<p><b>Volume</b></p>
-				<p><b>Deskripsi</b></p>
-				<p><b>Spesifikasi</b></p>
-				<p><b>Produk Dalam Negri</b></p>
-				<p><b>Usaha Kecil</b></p>
-				<p><b>Pra DIPA/DIPA</b></p>
-				<p><b>MAK</b></p>
-				<p><b>Jenis Pengadaan</b></p>
-				<p><b>Jumlah Pagu</b></p>
-				<p><b>Pemilihan Penyedia</b></p>
-				<p><b>Bulan Pekerjaan Akhir</b></p>
-				<p><b>Bulan Pekerjaan Mulai</b></p>
-				<p><b>Bulan Pemilihan Akhir</b></p>
-				<p><b>Bulan Pemilihan Mulai</b></p>
-				<p><b>Tanggal Perbarui </b></p>
+			<div class="col-md-12">
+				<table class="table">
+			<tr>
+				<td>Kode RUP</td>
+				<td>&nbsp;:&nbsp;</td>
+				<td>{{$paket["id"]}}</td>
+			</tr>
+			<tr>
+				<td>Nama Kegiatan </td>
+				<td>&nbsp;:&nbsp;</td>
+				<td>{{$paket["activity"]}}</td>
+			</tr>
+			<tr>
+				<td>Nama Paket </td>
+				<td>&nbsp;:&nbsp;</td>
+				<td>{{$paket["name"]}}</td>
+			</tr>
+			<tr>
+				<td>KLDI</td>
+				<td>&nbsp;:&nbsp;</td>
+				<td>{{$paket["kldi"]}}</td>
+			</tr>
+			<tr>
+				<td>Satuan Kerja</td>
+				<td>&nbsp;:&nbsp;</td>
+				<td>{{$paket["work_unit"]}}</td>
+			</tr>
+			<tr>
+				<td>Tahun Anggaran</td>
+				<td>&nbsp;:&nbsp;</td>
+				<td>{{$paket["year"]}}</td>
+			</tr>
+			<tr>
+				<td>Lokasi Pekerjaan</td>
+				<td>&nbsp;:&nbsp;</td>
+				<td>{{$paket["location"]['0']["detail"]}}, {{$paket["location"]['0']["province"]}}</td>
+			</tr>
+			<tr>
+				<td>Volume</td>
+				<td>&nbsp;:&nbsp;</td>
+				<td>{{$paket["volume"]}}</td>
+			</tr>
+			<tr>
+				<td>Deskripsi</td>
+				<td>&nbsp;:&nbsp;</td>
+				<td>{{$paket["description"]}}</td>
+				</tr>
+			<tr>
+				<td>Spesifikasi</td>
+				<td>&nbsp;:&nbsp;</td>
+				<td>{{$paket["spesification"]}}</td>
+				</tr>
+			<tr>
+				<td>Produk Dalam Negri</td>
+				<td>&nbsp;:&nbsp;</td>
+				<td>{{$paket["is_local_product"]}}</td>
+				</tr>
+			<tr>
+				<td>Usaha Kecil</td>
+				<td>&nbsp;:&nbsp;</td>
+				<td>{{$paket["is_small_business"]}}</td>
+				</tr>
+			<tr>
+				<td>Pra DIPA/DIPA</td>
+				<td>&nbsp;:&nbsp;</td>
+				<td>{{$paket["pra_dipa_dpa"]}}</td>
+				</tr>
+			<tr>
+				<td>Sumber Dana</td>
+				<td>&nbsp;:&nbsp;</td>
+				<td>{{$paket["fund"]["source"]['0']["name"]}}</td>
+				</tr>
+				<tr>
+				<td>MAK</td>
+				<td>&nbsp;:&nbsp;</td>
+				<td>{{$paket["fund"]["source"]['0']["mak"]}}</td>
+				</tr>
+			<tr>
+				<td>Jenis Pengadaan</td>
+				<td>&nbsp;:&nbsp;</td>
+				<td>{{$paket["type"]}}</td>
+				</tr>
+			<tr>
+				<td>Jumlah Pagu</td>
+				<td>&nbsp;:&nbsp;</td>
+				<td>Rp. {{number_format($paket["nominal"],0,',','.')}}</td>
+				</tr>
+			<tr>
+				<td>Pemilihan Penyedia</td>
+				<td>&nbsp;:&nbsp;</td>
+				<td>{{$paket["selection"]}}</td>
+				</tr>
+				<tr>
+				<td>Bulan Kebutuhan Akhir</td>
+				<td>&nbsp;:&nbsp;</td>
+				<td>{{$paket["time"]["final_need"]}}</td>
+				</tr>
+			<tr>
+			<tr>
+				<td>Bulan Kebutuhan Awal</td>
+				<td>&nbsp;:&nbsp;</td>
+				<td>{{$paket["time"]["initial_need"]}}</td>
+				</tr>
+			<tr>
+				<td>Bulan Pekerjaan Akhir</td>
+				<td>&nbsp;:&nbsp;</td>
+				<td>{{$paket["time"]["final_work"]}}</td>
+				</tr>
+			<tr>
+				<td>Bulan Pekerjaan Mulai</td>
+				<td>&nbsp;:&nbsp;</td>
+				<td>{{$paket["time"]["initial_work"]}}</td>
+				</tr>
+			<tr>
+				<td>Bulan Pemilihan Akhir</td>
+				<td>&nbsp;:&nbsp;</td>
+				<td>{{$paket["time"]["final_poll"]}}</td>
+				</tr>
+			<tr>
+				<td>Bulan Pemilihan Mulai </td>
+				<td>&nbsp;:&nbsp;</td>
+				<td>{{$paket["time"]["initial_poll"]}}</td>
+				</tr>
+			<tr>
+				<td>Tanggal Perbarui </td>
+				<td>&nbsp;:&nbsp;</td>
+				<td>{{$paket["time"]["updated"]}}</td>
+				</tr>
+
+					
+				</table>
+
 			</div>
-			<div class="col-md-10">
-				<p><span>:</span> {{$kode_urp}}</p>
-				<p><span>:</span> {{$nama_paket}}</p>
-				<p><span>:</span> {{$kldi}}</p>
-				<p><span>:</span> {{$satuan_kerja}}</p>
-				<p><span>:</span> {{$tahun_anggaran}}</p>
-				<p><span>:</span> {{substr($lokasi_pekerjaan, 65)}}</p>
-				<p><span>:</span> {{$volume}}</p>
-				<p><span>:</span> {{$deskripsi}}</p>
-				<p><span>:</span> {{$spesifikasi}}</p>
-				<p><span>:</span> {{$produk_d_negeri}}</p>
-				<p><span>:</span> {{$usaha_kecil}}</p>
-				<p><span>:</span> {{$pra_dipa_dpa}}</p>
-				<p><span>:</span> {{substr($sumber_dana, 180,-58)}}</p>
-				<p><span>:</span> {{$jenis_pengadaan}}</p>
-				<p><span>:</span> Rp. {{number_format($jumlah_pagu)}}</p>
-				<p><span>:</span> {{$pemilihan_penyedia}}</p>
-				<p><span>:</span> {{$bulan_pekerjaan_akhir}}</p>
-				<p><span>:</span> {{$bulan_pekerjaan_mulai}}</p>
-				<p><span>:</span> {{$bulan_pemilihan_akhir}}</p>
-				<p><span>:</span> {{$bulan_pemilihan_mulai}}</p>
-				<p><span>:</span> {{$tanggal_perbarui}}</p>
-			</div>
+			
 			
 		</div>
 	</div>

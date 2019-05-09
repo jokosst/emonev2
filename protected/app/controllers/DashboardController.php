@@ -11,6 +11,7 @@ class DashboardController extends BaseController {
 
 	 public function index(){
 		$tahun = date('Y');
+		$bulan = date('m');
 		$skpd_id = Auth::user()->pegawai->skpd->id;
 		$tahun_id = Tahun::where('tahun',$tahun)->first()->id;
 		// $tahun_id = Tahun::where('tahun',date("Y"))->first()->id;
@@ -21,6 +22,34 @@ class DashboardController extends BaseController {
 		->where('skpd_id',$skpd_id)
 		->orderBy('id', 'desc')->first();
 		// dd($paket_lelang);
+		$model = new DataGrafik;
+		$tahun_id = $model->getIdTahunTerakhir($tahun);
+		// get realisasi fisik & keuangan
+		// get rencana realisasi fisik & keuangan
+		$data_realisasi = $model->getDataGrafikRealisasi($skpd_id, $tahun_id);
+
+		// data untuk grafik realisasi
+		$data['series'] = json_encode($data_realisasi['series']);
+		$data['categories'] = json_encode($data_realisasi['categories']);
+		$data['chart_title'] = 'Grafik Realisasi Fisik dan Keuangan<br>Perangkat Daerah Tahun '.$tahun;
+
+		// data untuk grafik realisasi bulanan
+		$data_realisasi_bulanan = $model->getRealisasiSkpdBulanan($tahun_id,$skpd_id, $bulan);
+		$data['series_bulanan'] = json_encode($data_realisasi_bulanan['series']);
+
+		// echo $data['series'];
+		// print_r($data_realisasi).'<br>';
+		// print_r($data_realisasi_bulanan);
+		// die();
+		// data untuk
+		$data['skpd'] = $model->getSkpd();
+		$data['tahun'] = $model->getTahun();
+		$data['tahun_id'] = $tahun_id;
+		$data['skpd_id'] = $skpd_id;
+
+		// table
+		$data['table_realisasi'] = $data_realisasi['table'];
+		$data['table_realisasi_bulanan'] = $data_realisasi_bulanan['table'];
 		return View::make('dashboard.index',$data);
 	}
 

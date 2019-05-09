@@ -2,10 +2,10 @@
 
 @section('content')
 	<h2 class="menu__header">Detail Kegiatan</h2>
-	<a href="{{URL::to('emonevpanel/kegiatan/create')}}" class="btn btn-primary" style="float:right;">Tambah Kegiatan</a>
+	<a href="{{URL::to('emonevpanel/kegiatan/create')}}" class="btn btn-primary" style="float:right;margin-top: 10px;">Tambah Kegiatan</a>
 	<div class="content__block content__detail">
 		<div class="row">
-			<div class="col-md-2">
+			<div class="col-md-4">
 				<p><b>Nama Program</b></p>
 				<p><b>Nama Kegiatan</b></p>
 				<p><b>Nama Perangkat Daerah</b></p>
@@ -17,7 +17,7 @@
 				<p><b>Sumber Dana</b></p>
 				<p><b>Nama PA/KPA/PPK</b></p>
 			</div>
-			<div class="col-md-10">
+			<div class="col-md-8">
 				<p><span>:</span> {{$kegiatan->program->program}}</p>
 				<p><span>:</span> {{$kegiatan->kegiatan}}</p>
 				<p><span>:</span> {{$kegiatan->skpd->skpd}}</p>

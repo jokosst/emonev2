@@ -81,7 +81,6 @@ class PegawaiController extends BaseController {
 				return Redirect::back()->with('konf', 'Password Lama anda SALAH, Proses GAGAL');
 
 			} 
-		
 	}
 
 	public function hapusPegawai($id) {

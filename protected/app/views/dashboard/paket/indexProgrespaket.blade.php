@@ -40,14 +40,25 @@
     		<td>{{$lelang->status_kontrak}}</td>
     		<td>{{ucwords(str_replace('-',' ', $lelang->status))}}</td>
     		<td>{{$lelang->hps}}</td>
-    		<td><select onchange="actionLelang(this)" data-id="{{$lelang->id}}" class="form-control">
-  				<option value="">--Aksi--</option>
-        	<option value="detail">Detail</option>
-        	<option value="edit">Edit</option>
-        	<option value="hapus">Hapus</option>
-        </select></td>
-		</tr>
-	@endforeach
+    		
+		<td><a class="btn btn-warning btn-fill btn-xs" href="paket-lelang/detail/{{$lelang->id}}" data-toggle="tooltip" data-placement="bottom" title="Detail"><i class="fa fa-search"></i></a>
+	          	<a class="btn btn-success btn-fill btn-xs" href="paket-lelang/edit/{{$lelang->id}}" data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fa fa-pencil"></i></a>
+           <a class="btn btn-danger btn-fill btn-xs" href="paket-lelang/hapus/{{$lelang->id}}" data-toggle="tooltip" data-placement="bottom" title="Hapus" onclick="return confirmSubmit()"><i class="fa fa-trash"></i></a>
+                            
+                               </td> 
+	      	</tr>
+				@endforeach
+				<script>
+                  function confirmSubmit()
+                    {
+                        var agree=confirm("Apakah anda yakin akan menghapus Data ini?");
+                        if (agree)
+                            return true ;
+                        else
+                            return false ;
+                    }
+                </script>
+	
    </tbody>
 </table>
 <!-- End Table Paket Lelang -->
@@ -55,33 +66,10 @@
 @endsection
 
 @section('script')
-	<script type="text/javascript">
-		/* Deklarasi Datatable */
-		$('#table_id').DataTable();
-		/* Fungsi Sortir Paket */
-		$("#selectGetPaketTable").change(function() {
-			var tahun_id = $(this).val();
-			window.location = '?tahun_id='+tahun_id;
-		});
-		/* Fungsi Aksi Paket */
-		function actionLelang(el){
-			var id = $(el).attr('data-id');
-			var action = $(el).val();
-			switch(action) {
-				case "detail":
-					window.location = baseUrl+"/paket-lelang/detail/"+id;
-					break;
-				case "edit":
-					window.location = baseUrl+"/paket-lelang/edit/"+id;
-					break;
-				case "hapus":
-					var c = confirm("Apakah Anda ingin menghapus paket-lelang ini?");
-					if (c == true) {
-						window.location = baseUrl+"/paket-lelang/hapus/"+id;
-					}
-					return false;
-					break;
-			}
-		}
-	</script>
+	<script>
+	$('#table_id').DataTable();
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();   
+});
+</script>
 @endsection

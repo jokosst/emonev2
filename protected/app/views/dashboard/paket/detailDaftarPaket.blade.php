@@ -2,7 +2,7 @@
 
 @section('content')
 	<h2 class="menu__header">Detail Daftar Paket</h2>
-	<a href="{{URL::to('emonevpanel/paket/create')}}" class="btn btn-primary" style="float:right;">Tambah Paket</a>
+	<a href="{{URL::to('emonevpanel/daftar-paket/create')}}" class="btn btn-primary" style="float:right;margin-top: 10px;">Tambah Paket</a>
 	<div class="content__block content__detail">
 		<div class="row">
 			<div class="col-md-2">

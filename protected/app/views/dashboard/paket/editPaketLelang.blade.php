@@ -52,7 +52,7 @@
 	</div>
 		<div class="col-md-12">
 		<div class="form-group">
-			<label for="">Daftar Paket</label>
+			<label for="">Paket</label>
 			<select name="paket_id" class="form-control selectpicker" data-live-search="true" id="changePaket">
 				@foreach($Paket as $paket)
 					<option value="{{$paket->id}}" data-pagu="{{$paket->nilai_pagu_paket}}">{{$paket->paket}}</option>
@@ -82,8 +82,8 @@
 			<div class="col-md-12">
 				<!-- Input Produk Akhir -->
 				<div class="form-group">
-					<label for="">Nomor Kontak</label>
-					<input type="text" name="nomor_kontak" class="form-control" value="{{$lelang->nomor_kontak}}" required>
+					<label for="">Nomor Kontrak</label>
+					<input type="text" name="nomor_kontrak" class="form-control" value="{{$lelang->nomor_kontrak}}" required>
 				</div>
 				<!-- End Input Produk Akhir -->
 			</div>
@@ -93,7 +93,7 @@
 				<!-- Input Tempat Daftar -->
 				<div class="form-group">
 					<label for="">Tanggal BAST</label>
-					<input type="date" name="tgl_bast" class="form-control" value="{{$lelang->tgl_bast}}" required>
+					<input type="text" name="tgl_bast" class="datepicker form-control" value="{{ Convert::tgl_eng_to_ind($lelang->tgl_bast)}}" required>
 				</div>
 				<!-- End Tempat Daftar -->
 			</div>
@@ -106,13 +106,13 @@
 			<div class="col-md-12">
 				<div class="form-group">
 					<label for="">Realisasi Fisik Paket</label>
-					<input type="text" name="realisasi-fisik-paket" class="form-control" value="{{$lelang->realisasi-fisik-paket}}" placeholder="Realisasi Fisik Paket" required>
+					<input type="text" name="realisasi-fisik-paket" class="form-control" value="" placeholder="Realisasi Fisik Paket" required>
 				</div>
 			</div>
 			<div class="col-md-12">
 				<div class="form-group">
 					<label for="">Realisasi Keuangan Paket</label>
-					<input type="text" name="realisasi-keuangan-paket" value="{{$lelang->realisasi-keuangan-paket}}" class="form-control" placeholder="Realisasi Keuangan Paket" required>
+					<input type="text" name="realisasi-keuangan-paket" value="" class="form-control" placeholder="Realisasi Keuangan Paket" required>
 				</div>
 			</div>
 			<!-- End Col-md-4 -->
@@ -121,7 +121,7 @@
 				<!-- Input Status -->
 				<div class="form-group" id="status1">
 					<label for="">Status</label>
-					<select name="status" class="form-control">
+					<select name="status" class="form-control" id="status">
 						<option @if($lelang->status == 'belum-mengajukan-dokumen-tender') selected @endif value="belum-mengajukan-dokumen-tender">Belum Mengajukan Dokumen Tender</option>
 						<option @if($lelang->status == 'lelang-sedang-berjalan') selected @endif value="lelang-sedang-berjalan">Tender Sedang Berjalan</option>
 						<option @if($lelang->status == 'lelang-sudah-selesai') selected @endif value="lelang-sudah-selesai">Tender Sudah Selesai</option>
@@ -135,7 +135,7 @@
 			<div class="col-md-12">
 				<div class="form-group" id="status2">
 					<label for="">Status</label>
-					<select name="status" class="form-control">
+					<select name="status" class="form-control" id="status21">
 						<option @if($lelang->status == 'belum-proses') selected @endif value="belum-proses">Belum Proses</option>
 						<option @if($lelang->status == 'proses-sedang-berjalan') selected @endif value="proses-sedang-berjalan">proses sedang berjalan</option>
 						<option  @if($lelang->status == 'proses-selesai') selected @endif value="proses-selesai">proses selesai</option>
@@ -143,25 +143,25 @@
 				</div>
 			</div>
 		
-		<div class="col-md-12">
-				<!-- Input Rekanan -->
-				<div class="form-group">
-					<label for="">Rekanan</label>
-					<input type="text" name="rekanan" class="form-control" value="{{$progres->rekanan}}">
-				</div>
-				<!-- End Input Rekanan -->
-			</div>
-			<!-- End Col-md-6 -->
-		</div>
-		<!-- End Row -->
-		<!-- Row -->
 		
-			<!-- Col-md-6 -->
+			<div class="col-md-12">
+			<div class="form-group" id="rekanan1">
+				<label for="">Rekanan</label>
+				<input type="text" name="rekanan" value="{{$lelang->rekanan}}" class="form-control">
+			</div>
+		</div>
+	<div class="col-md-12">
+			<div class="form-group" id="rekanan2">
+				<label for="">Rekanan</label>
+				<input type="text" name="rekanan" disabled class="form-control">
+			</div>
+		</div>
+		
 			<div class="col-md-12">
 				<!-- Input Nilai Kontrak -->
 				<div class="form-group">
 					<label for="">Nilai Kontrak</label>
-					<input type="text" class="form-control setMoney" name="nilai_kontrak" value="{{ "Rp ".number_format($progres->nilai_kontrak,0,',','.'); }}"  required>
+					<input type="text" class="form-control setMoney" name="nilai_kontrak" value="{{ "Rp ".number_format($lelang->progres->nilai_kontrak,0,',','.'); }}"  required>
 					<p class="validation-text">Nilai Inputan Melebihi Pagu</p>
 				</div>
 				<!-- End Input Nilai Kontrak -->
@@ -172,41 +172,41 @@
 			<div class="form-group">
 				<label for="">Progres Pekerjaan</label>
 				<select name="status_kontrak" id="" class="form-control">
-					<option @if($progres->status_kontrak == 'blt') selected @endif value="blt">Belum </option>
-					<option @if($progres->status_kontrak == 'sdt') selected @endif value="sdt">Sedang Pelaksanaan</option>
-					<option @if($progres->status_kontrak == 'sls') selected @endif value="sls">Selesai</option>
+					<option @if($lelang->status_kontrak == 'blt') selected @endif value="blt">Belum </option>
+					<option @if($lelang->status_kontrak == 'sdt') selected @endif value="sdt">Sedang Pelaksanaan</option>
+					<option @if($lelang->status_kontrak == 'sls') selected @endif value="sls">Selesai</option>
 				</select>
 			</div>
 		</div>
 			<!-- End Col-md-6 -->
 		
-		<!-- End Row -->
-		<!-- Row -->
-		<div class="row">
+		
 			<!-- Col-md-6 -->
-			<div class="col-md-6">
+			<div class="col-md-12">
 				<!-- Input Tanggal Mulai -->
 				<div class="form-group">
 					<label for="">Tanggal Mulai</label>
-					<input type="text" class="datepicker form-control" name="tanggal_mulai" value="{{$progres->tanggal_mulai}}" required>
+					<input type="text" class="datepicker form-control" name="tanggal_mulai" value="{{Convert::tgl_eng_to_ind($lelang->progres->tanggal_mulai)}}" required>
 				</div>
 				<!-- End Input Tanggal Mulai -->
 			</div>
 			<!-- End Col-md-6 -->
 			<!-- Col-md-6 -->
-			<div class="col-md-6">
+			<div class="col-md-12">
 				<!-- Input Tanggal Selesai -->
 				<div class="form-group">
 					<label for="">Tanggal Selesai</label>
-					<input type="text" class="datepicker form-control" name="tanggal_selesai" value="{{$progres->tanggal_selesai}}">
+					<input type="text" class="datepicker form-control" name="tanggal_selesai" value="{{Convert::tgl_eng_to_ind($lelang->progres->tanggal_selesai)}}">
 				</div>
 				<!-- End Input Tanggal Selesai -->
 			</div>
 			<!-- End Col-md-6 -->
-		</div>
+		
 		<!-- End Row -->
+		<div class="col-md-12">
 		<input type="hidden" name="id" value="{{$lelang->id}}">
-		<button type="submit" class="btn btn-primary btn-lg">Update</button>
+		<button type="submit" class="btn btn-primary btn-lg" style="margin-bottom: 10px;">Update</button>
+	</div>
 	</div>
 	</form>
 	<!-- END FORM PAKET LELANG -->
@@ -216,8 +216,12 @@
 
 <!-- Plugin Mask Money -->
 <script type="text/javascript" src="{{URL::to('source/plugins/jquery-maskmoney/dist/jquery.maskMoney.min.js')}}"></script>
+<script type="text/javascript" src="{{URL::to('source/plugins/datepicker/js/bootstrap-datepicker.js')}}"></script>
 <!-- Custom -->
 <script>
+	$('.datepicker').datepicker({
+		format: "dd-mm-yyyy"
+	});
 	$('.setMoney').maskMoney({prefix:'Rp ', thousands:'.', decimal:',', allowZero: true, precision:0});
 	$("select[name='jenis_proses_lelang']").change(function() {
 		var jenis = $(this).val();
@@ -241,6 +245,7 @@
 		}
 	});
 	/* onjenis proses lelang  */
+	$("#status2").hide();
 	$("#jenis_proses_lelang").change(function() {
 		$("#status2").hide();
 		var jenis_proses_lelang = $(this).val();
@@ -252,6 +257,28 @@
 			$("#hps").hide();
 			$("#status2").show();
 			$("#status1").hide();
+		}
+	});
+	$("#rekanan1").hide();
+	$("#status").change(function() {
+		
+		var status = $(this).val();
+		if(status == "lelang-sudah-selesai"){
+			$("#rekanan1").show();
+			$("#rekanan2").hide();
+		}else{
+			$("#rekanan2").show();
+			$("#rekanan1").hide();
+		}
+	});
+	$("#status21").change(function() {		
+		var status = $(this).val();
+		if(status == "proses-selesai"){
+			$("#rekanan1").show();
+			$("#rekanan2").hide();
+		}else{
+			$("#rekanan2").show();
+			$("#rekanan1").hide();
 		}
 	});
 </script>

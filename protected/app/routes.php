@@ -36,8 +36,22 @@ Route::get('logout',array('before' => 'auth', 'uses' => 'AuthController@doLogout
 Route::group(array('before' => 'auth', 'prefix' => 'emonevpanel'),function() {
 
 	Route::get('/','DashboardController@index');
-
-	Route::get('program','ProgramController@indexProgram');
+//sirup
+	Route::get('/skpd1', "SirupController@skpd");
+	
+	// Route::get('/activity', "SirupController@activity");
+	Route::get('/package/{idSKPD}/{idProgram}/{idActivity}', "SirupController@package");
+	Route::get('/package-list', "SirupController@packageList");
+// batas sirup
+//perubahan
+	// Route::get('daftar-paket','PaketController@indexDaftarPaket');
+Route::get('paket_sirup','PaketController@paket_sirup');
+Route::get('program','ProgramController@indexProgram');
+Route::get('/program1', "SirupController@program");
+// Route::get('paket_sirup/detail/{id}','PaketController@detailPaketSirup');
+Route::get('paket_sirup/detail/{id}', "SirupController@packageDetail");
+	
+	
 	Route::post('program/insert','ProgramController@insertProgram');
 	Route::post('/program/update','ProgramController@updateProgram');
 	Route::get('/program/delete','ProgramController@deleteProgram');
@@ -58,7 +72,7 @@ Route::group(array('before' => 'auth', 'prefix' => 'emonevpanel'),function() {
 	Route::post('kegiatan/update','KegiatanController@updateKegiatan');
 	Route::get('kegiatan/hapus/{id}','KegiatanController@hapusKegiatan');
 
-	Route::get('daftar-paket','PaketController@indexDaftarPaket');
+	
 	Route::get('daftar-paket/create','PaketController@createDaftarPaket');
 	Route::post('daftar-paket/create','PaketController@insertDaftarPaket');
 	Route::post('cari_paket','PaketController@cari_paket');
@@ -67,8 +81,7 @@ Route::group(array('before' => 'auth', 'prefix' => 'emonevpanel'),function() {
 	Route::get('daftar-paket/edit/{id}','PaketController@editDaftarPaket');
 	Route::post('daftar-paket/update','PaketController@updateDaftarPaket');
 	Route::get('daftar-paket/hapus/{id}','PaketController@hapusDaftarPaket');
-	Route::get('paket_sirup','PaketController@paket_sirup');
-	Route::get('paket_sirup/detail/{id}','PaketController@detailPaketSirup');
+	
 
 	Route::get('paket-lelang','PaketController@indexPaketLelang');
 	Route::get('paket-lelang/create','PaketController@createPaketLelang');

@@ -109,11 +109,11 @@
 			<td>{{ "Rp ".number_format($realisasi->pengeluaran,0,',','.'); }}</td>
 			<td>{{$realisasi->fisik." %"}}</td>
 			<td>{{$realisasi->uang." %"}}</td>
-			<td><select onchange="actionRealisasi(this)" data-id="{{$realisasi->id}}" class="form-control">
-			<option value="">--Aksi--</option>
-          	<option value="detail">Detail</option>
-          	<option value="edit">Update Realisasi</option>
-          </select></td>
+			<td><a class="btn btn-warning btn-fill btn-xs" href="realisasi/detail/{{$realisasi->id}}" data-toggle="tooltip" data-placement="bottom" title="Detail"><i class="fa fa-search"></i></a>
+	          	<a class="btn btn-success btn-fill btn-xs" href="realisasi/edit/{{$realisasi->id}}" data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fa fa-pencil"></i></a>
+          
+                            
+                               </td> 
 		</tr>
 	@endforeach
     </tbody>
@@ -125,18 +125,8 @@
 	<script type="text/javascript">
 		/* Deklarasi Datatable */
 		$('#table_id').DataTable({"iDisplayLength": 25});
-		/* Fungsi Aksi Realisasi */
-		function actionRealisasi(el){
-			var id = $(el).attr('data-id');
-			var action = $(el).val();
-			switch(action) {
-				case "detail":
-					window.location = baseUrl+"/realisasi/detail/"+id;
-					break;
-				case "edit":
-					window.location = baseUrl+"/realisasi/edit/"+id;
-					break;
-			}
-		}
-	</script
+		$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();   
+});
+	</script>
 @endsection

@@ -104,7 +104,7 @@ $dataDl1 = $dataDiv->getElementsByTagName("dl")->item(1);
 $obj = $dataDl->getElementsByTagName("dd");
 $obj1 = $dataDl1->getElementsByTagName("dd");
 
-  $data['dukungan_kegiatan'] = preg_replace("/: /", '', $obj->item(0)->textContent);
+    $data['dukungan_kegiatan'] = preg_replace("/: /", '', $obj->item(0)->textContent);
     $data['nawacita'] = preg_replace("/: /", '', $obj->item(1)->textContent);
     $data['prioritas_nasional'] = preg_replace("/: /", '', $obj->item(2)->textContent);
     $data['program_prioritas'] = preg_replace("/: /", '', $obj->item(3)->textContent);
@@ -125,20 +125,20 @@ $obj1 = $dataDl1->getElementsByTagName("dd");
     $data['produk_d_negeri'] = preg_replace("/: /", '', $obj1->item(10)->textContent);
     $data['usaha_kecil'] = preg_replace("/: /", '', $obj1->item(11)->textContent);
     $data['pra_dipa_dpa'] = preg_replace("/: /", '', $obj1->item(12)->textContent);
-    $data['sumber_dana'] = preg_replace("/: /", '', $obj1->item(14)->textContent);
-    $data['jenis_pengadaan'] = preg_replace("/: /", '', $obj1->item(15)->textContent);
-    $data['jumlah_pagu'] = preg_replace("/: /", '', $obj1->item(16)->textContent);
-    $data['pemilihan_penyedia'] = preg_replace("/: /", '', $obj1->item(17)->textContent);
-    $data['bulan_kebutuhan'] = preg_replace("/: /", '', $obj1->item(19)->textContent);
-    $data['bulan_pekerjaan_akhir'] = preg_replace("/: /", '', $obj1->item(20)->textContent);
-    $data['bulan_pekerjaan_mulai'] = preg_replace("/: /", '', $obj1->item(21)->textContent);
-    $data['bulan_pemilihan_akhir'] = preg_replace("/: /", '', $obj1->item(22)->textContent);
-    $data['bulan_pemilihan_mulai'] = preg_replace("/: /", '', $obj1->item(23)->textContent);
-    $data['tanggal_perbarui'] = preg_replace("/: /", '', $obj1->item(24)->textContent);
+    $data['sumber_dana'] = preg_replace("/: /", '', $obj1->item(13)->textContent);
+    $data['jenis_pengadaan'] = preg_replace("/: /", '', $obj1->item(14)->textContent);
+    $data['jumlah_pagu'] = preg_replace("/: /", '', $obj1->item(15)->textContent);
+    $data['pemilihan_penyedia'] = preg_replace("/: /", '', $obj1->item(16)->textContent);
+    $data['bulan_kebutuhan'] = preg_replace("/: /", '', $obj1->item(18)->textContent);
+    $data['bulan_pekerjaan_akhir'] = preg_replace("/: /", '', $obj1->item(19)->textContent);
+    $data['bulan_pekerjaan_mulai'] = preg_replace("/: /", '', $obj1->item(20)->textContent);
+    $data['bulan_pemilihan_akhir'] = preg_replace("/: /", '', $obj1->item(21)->textContent);
+    $data['bulan_pemilihan_mulai'] = preg_replace("/: /", '', $obj1->item(22)->textContent);
+    $data['tanggal_perbarui'] = preg_replace("/: /", '', $obj1->item(23)->textContent);
+
 		return View::make('dashboard.paket.detailPaketSirup',$data);
 	}
-
-
+	
 	public function indexPaketLelang() {
 		$data['menu'] = 'lelang';
 
@@ -193,13 +193,12 @@ $obj1 = $dataDl1->getElementsByTagName("dd");
 		$tahun_id = Tahun::where('tahun',date("Y"))->first()->id;
 		$tahun = Tahun::where('tahun',date("Y"))->first()->tahun;
 
-
 		$data['Skpd'] = Skpd::getSkpd($skpd_id);
 		$data['Tahun'] = Tahun::orderBy('id', 'DESC')->get();
 		$data['Pegawai'] = Pegawai::getKpa($skpd_id);
 		$data['Kegiatan'] = Kegiatan::where('skpd_id', '=', $skpd_id)->where('tahun_id', '=', $tahun_id)->get();
 		$data['Lokasi'] = DB::table('lokasi')->get();
-
+		
 
 $params1 = urldecode("idKldi=D204&tahun=$tahun&sEcho=1&iColumns=8&sColumns=%2Csatker%2CjumPenyedia%2C%2CjumSwakelola%2C%2CjumSwakelolaPenyedia%2C&iDisplayStart=0&iDisplayLength=1&mDataProp_0=0&sSearch_0=&bRegex_0=false&bSearchable_0=true&bSortable_0=false&mDataProp_1=1&sSearch_1=&bRegex_1=false&bSearchable_1=true&bSortable_1=true&mDataProp_2=2&sSearch_2=&bRegex_2=false&bSearchable_2=true&bSortable_2=true&mDataProp_3=3&sSearch_3=&bRegex_3=false&bSearchable_3=true&bSortable_3=true&mDataProp_4=4&sSearch_4=&bRegex_4=false&bSearchable_4=true&bSortable_4=true&mDataProp_5=5&sSearch_5=&bRegex_5=false&bSearchable_5=true&bSortable_5=true&mDataProp_6=6&sSearch_6=&bRegex_6=false&bSearchable_6=true&bSortable_6=true&mDataProp_7=7&sSearch_7=&bRegex_7=false&bSearchable_7=true&bSortable_7=true&sSearch=&bRegex=false&iSortCol_0=0&sSortDir_0=asc&iSortingCols=1&_=1546056733110");
 $url1 = "https://sirup.lkpp.go.id/sirup/datatablectr/datatableruprekapkldi?$params1";
@@ -221,7 +220,7 @@ $data['data_satker'] = $dataData1;
 
 		return View::make('dashboard.paket.createDaftarPaket',$data);
 	}
-	public function cari_satker()
+public function cari_satker()
     {
         $strsatker    = Input::get('strsatker');
         $tahun = Tahun::where('tahun',date("Y"))->first()->tahun;
@@ -252,6 +251,7 @@ foreach ($dataData as $data) {
 
 echo "</select>";
 }
+
 	public function cari_paket()
     {
         $strpaket    = Input::get('strpaket');
@@ -270,7 +270,8 @@ $dataDl = $dataDiv->getElementsByTagName("dl")->item(0);
 $dataDl1 = $dataDiv->getElementsByTagName("dl")->item(1);
 $obj = $dataDl->getElementsByTagName("dd");
 $obj1 = $dataDl1->getElementsByTagName("dd");
- $dukungan_kegiatan = preg_replace("/: /", '', $obj->item(0)->textContent);
+
+    $dukungan_kegiatan = preg_replace("/: /", '', $obj->item(0)->textContent);
     $nawacita = preg_replace("/: /", '', $obj->item(1)->textContent);
     $prioritas_nasional = preg_replace("/: /", '', $obj->item(2)->textContent);
     $program_prioritas = preg_replace("/: /", '', $obj->item(3)->textContent);
@@ -325,13 +326,10 @@ $kualifikasi = "<div class='col-md-12'>
 		</div>";
     }
 
-
-       echo "<div class='col-md-12'>
+echo "<div class='col-md-12'>
 			<div class='form-group'><label for=''>Pagu Paket</label><input type='text' value='Rp ",str_replace(",", ".", number_format((float)$jumlah_pagu)),"' class='form-control' id='pagu' disabled><input type='hidden' value='Rp ",str_replace(",", ".", number_format((float)$jumlah_pagu)),"' name='pagu_paket'><input type='hidden' value='",$nama_paket,"' name='paket'></div></div>";
 		echo "<div class='col-md-12'><div class='form-group'><label for=''>Volume</label><input type='text' name='volume' class='form-control' value='",$volume,"'></div></div>";
 		echo $kualifikasi;
-
-
 		
     }
 
@@ -382,9 +380,7 @@ $kualifikasi = "<div class='col-md-12'>
 		$data['Tahun'] = Tahun::orderBy('id', 'DESC')->get();
 		$data['Kegiatan'] = Kegiatan::where('skpd_id', '=', $skpd_id)->where('tahun_id', '=', $tahun_id)->get();
 		$data['Daftar_paket'] = DB::table('daftar_paket')->where('skpd_id','=',$skpd_id)->where('tahun_id','=',$tahun_id)->get();
-		$data['menu'] = 'lelang';
-	
-
+		
 		return View::make('dashboard.paket.createPaketLelang',$data);
 	}
 
@@ -423,21 +419,34 @@ DB::table('progres_lelang')->insert(array('tahun_id'=>$data['tahun_id'],'skpd_id
 		$lelang = Lelang::find($id);
 		$data['lelang'] = $lelang;
 		$data['Paket'] = Paket::where('skpd_id',$lelang->skpd_id)->where('tahun_id',$lelang->tahun_id)->where('kegiatan_id',$lelang->kegiatan_id)->get();
-		$data['progres'] = Progres::where('skpd_id',$lelang->skpd_id)->where('tahun_id',$lelang->tahun_id)->where('lelang_id',$lelang->kegiatan_id)->get();
+		$data['progres'] = Progres::where('skpd_id',$lelang->skpd_id)->where('tahun_id',$lelang->tahun_id)->where('lelang_id',$lelang->id)->get();
 		return View::make('dashboard.paket.editPaketLelang',$data);
 	}
 
 	public function updatePaketLelang() {
-		$data = Input::all();
+		$data['skpd_id'] = Input::get('skpd_id');
+		$data['tahun_id'] = Input::get('tahun_id');
+		$data['jenis_proses_lelang'] = Input::get('jenis_proses_lelang');
+		$data['kegiatan_id'] = Input::get('kegiatan_id');
+		$data['paket_id'] = Input::get('paket_id');
+		$data['lokasi_id'] = Input::get('lokasi_id');
 		$data['nilai_hps'] = str_replace(['Rp','.'], '', Input::get('hps'));
+		$data['hps'] = Input::get('hps');
+		$data['nomor_kontrak'] = Input::get('nomor_kontrak');
+		$data['tgl_bast'] = Convert::tgl_ind_to_eng(Input::get('tgl_bast'));
+		$data['nomor_bast'] = Input::get('nomor_bast');
+		$data['realisasi-fisik-paket'] = Input::get('realisasi-fisik-paket');
+		$data['realisasi-keuangan-paket'] = Input::get('realisasi-keuangan-paket');
+		$data['status'] = Input::get('status');
+		$data['rekanan'] = Input::get('rekanan');
+		$data['status_kontrak'] = Input::get('status_kontrak');
 		$id = Input::get('id');
 		DB::table('paket_lelang')->where('id',$id)->update($data);
-		$data1['rekanan'] = Input::get('rekanan');
-		$data1['status_kontrak'] = Input::get('status_kontrak');
-		$data1['tanggal_mulai'] = Convert::tgl_ind_to_eng(Input::get('tanggal_mulai'));
-		$data1['tanggal_selesai'] = Convert::tgl_ind_to_eng(Input::get('tanggal_selesai'));
-		$data1['nilai_kontrak'] = str_replace(['Rp','.'], '', Input::get('nilai_kontrak'));
-		Progress::where('id',$id)->update($data1);
+		$tanggal_mulai = $data['tanggal_mulai'] = Convert::tgl_ind_to_eng(Input::get('tanggal_mulai'));
+		$tanggal_selesai = $data['tanggal_selesai'] = Convert::tgl_ind_to_eng(Input::get('tanggal_selesai'));
+		$nilai_kontrak = $data['nilai_kontrak'] = str_replace(['Rp','.'], '', Input::get('nilai_kontrak'));
+
+		DB::table('progres_lelang')->where('lelang_id',$id)->update(array('tahun_id'=>$data['tahun_id'],'skpd_id'=>$data['skpd_id'],'lokasi_id'=>$data['lokasi_id'],'nilai_kontrak'=>$nilai_kontrak,'rekanan'=>$data['rekanan'],'tanggal_mulai'=>$tanggal_mulai,'tanggal_selesai'=>$tanggal_selesai,'status_kontrak'=>$data['status_kontrak'],));
 		return Redirect::to('emonevpanel/paket-lelang');
 	}
 
