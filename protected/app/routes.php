@@ -44,7 +44,7 @@ Route::group(array('before' => 'auth', 'prefix' => 'emonevpanel'),function() {
 	Route::get('/package-list', "SirupController@packageList");
 // batas sirup
 //perubahan
-	// Route::get('daftar-paket','PaketController@indexDaftarPaket');
+Route::get('daftar-paket','PaketController@indexDaftarPaket');
 Route::get('paket_sirup','PaketController@paket_sirup');
 Route::get('program','ProgramController@indexProgram');
 Route::get('/program1', "SirupController@program");

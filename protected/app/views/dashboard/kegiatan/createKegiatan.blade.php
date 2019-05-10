@@ -82,7 +82,7 @@
 			<div class="col-md-12">
 				<!-- Input Kode Anggaran -->
 				<div class="form-group">
-					<label for="">Kode Anggaran</label>
+					<label for="">Kode Kegiatan</label>
 					<input type="text" name="kode_anggaran" class="form-control" required placeholder="Kode Anggaran" data-error="Tidak boleh kosong">
 					<div class="help-block with-errors"></div>
 				</div> <!-- End Input Kode Anggaran -->

@@ -21,8 +21,8 @@
 		<thead>
       <tr>
       	<th>No</th>
-        <th>Nama Rekanan</th>
         <th>Nama Paket</th>
+        <th>Nama Rekanan</th>
         <th>Nilai Kontrak</th>
         <th>Status</th>
         <th>Aksi</th>
@@ -32,8 +32,8 @@
     	@foreach($Progres as $key => $progres)
     		<tr>
     			<td>{{$key + 1}}</td>
-    			<td>{{$progres->rekanan}}</td>
     			<td>{{$progres->lelang->paket->paket}}</td>
+    			<td>{{$progres->rekanan}}</td>
     			<td>{{ "Rp ".number_format($progres->nilai_kontrak,0,',','.'); }}</td>
     			<td>{{Convert::ubah_status_kontrak($progres->status_kontrak)}}</td>
 	    		<td><select onchange="actionProgres(this)" data-id="{{$progres->id}}" class="form-control">

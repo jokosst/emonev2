@@ -51,7 +51,7 @@
       	<th>No</th>
         <th>Nama Kegiatan</th>
         <th width="150px;">Pagu</th>
-        <th width="200px;">Kode Anggaran</th>
+        <th width="200px;">Kode Kegiatan</th>
         <th width="120px;">Aksi</th>
       </tr>
     </thead>

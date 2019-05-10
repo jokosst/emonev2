@@ -1,4 +1,5 @@
-<table class="table table-bordered table-striped" style="margin-top:20px;">
+
+<table class="table table-bordered table-striped" style="margin-top:20px;" >
 	<thead>
 		<tr>
 			<th>Title (%)</th>

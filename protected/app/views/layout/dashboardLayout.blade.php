@@ -46,7 +46,8 @@
 							<ul class="dropdown-menu">
 								<li><a href="{{URL::to('/emonevpanel/program')}}">Program</a></li>
 								<li><a href="{{URL::to('/emonevpanel/kegiatan')}}">Kegiatan</a></li>
-								<li><a href="{{URL::to('/emonevpanel/paket_sirup')}}">Daftar Paket</a></li>
+								<li><a href="{{URL::to('/emonevpanel/paket_sirup')}}">Daftar Paket (SIRUP)</a></li>
+								<li><a href="{{URL::to('/emonevpanel/daftar-paket')}}">Daftar Paket</a></li>
 								
 								
 							</ul>
@@ -62,22 +63,25 @@
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu 3 <b class="caret"></b></a>
 							<ul class="dropdown-menu">
 								<li><a href="{{URL::to('/emonevpanel/summary')}}">Summary</a></li>
+								<li><a href="{{URL::to('/emonevpanel/pegawai')}}">Pegawai</a></li>
 						@if(Auth::user()->level != 'adminskpd')
 						<li><a href="{{URL::to('/emonevpanel/rencana-realisasi')}}">Rencana Realisasi</a></li>
 						<li><a href="{{URL::to('/emonevpanel/grup-deviasi')}}">Grup Deviasi</a></li>
 						@endif
 						</ul>
 						</li>
-						
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu 4 <b class="caret"></b></a>
-							<ul class="dropdown-menu">
-								<li><a href="{{URL::to('/emonevpanel/pegawai')}}">Pegawai</a></li>
+						 <li><a href="{{URL::to('/emonevpanel/apbn')}}">APBN</a></li>
+
+						 <li class="dropdown dropdown-user">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								 <img src="{{URL::to('source/images/admin.png')}}" width="30" style="margin-top: -5px;margin-bottom: -8px" /><b class="caret"></b></a>
+							<ul class="dropdown-menu dropdown-menu-right">
+								
 								<li><a href="{{URL::to('/emonevpanel/akun')}}">Akun</a></li>
 								<li><a href="{{URL::to('logout')}}">Logout</a></li>
 						</ul>
 						</li>
-						 <li><a href="{{URL::to('/emonevpanel/apbn')}}">APBN</a></li>
+
 					</ul>
 				</div><!-- /.navbar-collapse -->
 

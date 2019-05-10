@@ -22,8 +22,8 @@
   <tr>
   	<th>No</th>
     <th>Nama Kegiatan</th>
-     <th>Nama Rekanan</th>
     <th>Nama Paket</th>
+     <th>Nama Rekanan</th>
     <th>Status Kontrak</th>
     <th>Status</th>
     <th width="120px;">HPS</th>
@@ -35,8 +35,8 @@
 		<tr>
 			<td>{{$key+1}}</td>
     		<td>{{$lelang->kegiatan->kegiatan}}</td>
+        <td>{{$lelang->paket->paket}}</td>
     		<td>{{$lelang->rekanan}}</td>
-    		<td>{{$lelang->paket->paket}}</td>
     		<td>{{$lelang->status_kontrak}}</td>
     		<td>{{ucwords(str_replace('-',' ', $lelang->status))}}</td>
     		<td>{{$lelang->hps}}</td>

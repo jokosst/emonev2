@@ -12,7 +12,7 @@
 				<p><b>Lokasi</b></p>
 				<p><b>Tahun Anggaran</b></p>
 				<p><b>Pagu</b></p>
-				<p><b>Kode Anggaran</b></p>
+				<p><b>Kode Kegiatan</b></p>
 				<p><b>Jenis Belanja</b></p>
 				<p><b>Sumber Dana</b></p>
 				<p><b>Nama PA/KPA/PPK</b></p>

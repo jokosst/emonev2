@@ -1,5 +1,4 @@
 @extends('layout.dashboardLayout')
-
 @section('content')
 
 
@@ -25,7 +24,7 @@
 </div>
 	<div class="col-md-6">
 	<div id="grafik-realisasi" style="width: calc( 100% - 50px);"></div>
-<div id="table-realisasi">
+<div id="table-realisasi" class="table-responsive">
 	{{ $table_realisasi }}
 </div>
 </div>
@@ -33,7 +32,7 @@
 
 
 </div>
-	<div class="row">
+	<div class="row" style="margin-top: 15px">
 		<div class="col-md-4">
 			<div class="box__section">
 				<h3>{{Auth::user()->pegawai->pegawai}}</h3>
@@ -41,10 +40,7 @@
 				<p><b>Level :</b> {{ucfirst(Auth::user()->level)}}</p>
 			</div>
 		</div>
-	</div>
-	
-	@if(Auth::user()->level == 'adminskpd')
-	<div class="row">
+		@if(Auth::user()->level == 'adminskpd')
 		<div class="col-md-6">
 			<div class="box__section">
 				<h3>{{Auth::user()->pegawai->skpd->skpd}}</h3>
@@ -52,15 +48,22 @@
 				<p><b>Jumlah Kegiatan :</b> {{$jmlKegiatan}}</p>
 			</div>
 		</div>
-	</div>
-	<div class="row">
 		<div class="col-md-4">
 			<a href="{{URL::to('emonevpanel/copy-realisasi')}}"><div class="box__section">
 				<h3>Copy Realisasi</h3>
 			</div></a>
 		</div>
+			@endif
 	</div>
-	@endif
+	
+	
+	<!-- <div class="row">
+		
+	</div>
+	<div class="row">
+		
+	</div> -->
+
 	@if(Auth::user()->level != 'adminskpd')
 	<div class="row">
 		<div class="col-md-3">
@@ -112,6 +115,7 @@
 		$( function(){
 			$( '#grafik-realisasi-detail' ).highcharts( detail_highcharts_config );
 		})
+
 	});
 
 	function getData(){
@@ -244,4 +248,5 @@
 </script>
 <script type="text/javascript" src="{{URL::to('source/plugins/HighCharts/js/highcharts.js')}}"></script>
 <script type="text/javascript" src="{{URL::to('source/plugins/HighCharts/js/modules/exporting.js')}}"></script>
+
 @stop
