@@ -1,32 +1,23 @@
 @extends('layout.dashboardLayout')
 
 @section('content')
-	<h2 class="menu__header">Progres Paket Perangkat Daerah</h2>
-	<!-- FORM ADD PAKET LELANG -->
-	<form action="" method="POST" role="form" data-toggle="validator">
-		<legend>Tambah Paket Tender Perangkat Daerah</legend>
+	<h2 class="menu__header">Paket SKPD</h2>
+	<!-- FORM EDIT PAKET LELANG -->
+	<form action="{{URL::to('emonevpanel/progres-paket/update')}}" method="POST" role="form" data-toggle="validator">
+		<legend>Edit Progres Paket Perangkat Daerah</legend>
 		<!-- Input SKPD -->
 		<div class="row">
 		<div class="col-md-12">
 		<div class="form-group">
 			<label for="">Perangkat Daerah</label>
-			<!-- Jika Masuk bukan sebagai Admin SKPD (root || administrator) -->
-			@if(Auth::user()->level != 'adminskpd')
-				<select id="getIdSkpdAndKpa" class="form-control selectpicker" data-live-search="true" required>
-					<option value="">------ Pilih Perangkat Daerah ----------</option>
-					<!-- Menampilkan Semua SKPD -->
-					@foreach($Skpd as $skpd)
-						<option value="{{$skpd->id}}">{{$skpd->skpd}}</option>
-					@endforeach
-				</select>
-				<input type="hidden" name="skpd_id">
-			@else
-				<!-- Menampilkan 1 SKPD -->
-				<input type="text" name="skpd" class="form-control" value="{{$Skpd->skpd}}" disabled="true">
-				<input type="hidden" name="skpd_id" value="{{$Skpd->id}}">
-			@endif
-		</div> <!-- End Input SKPD -->
+			<input type="text" class="form-control" value="{{$Skpd->skpd}}" disabled="">
+			<input type="hidden" value="{{$Skpd->id}}" name="skpd_id">
+		</div>
 	</div>
+		<!-- End Input SKPD -->
+		<!-- Row -->
+	
+			<!-- Col-md-6 -->
 			<div class="col-md-12">
 				<!-- Input Tahun -->
 				<div class="form-group">
@@ -36,91 +27,96 @@
 						<option value="{{$tahun->id}}">{{$tahun->tahun}}</option>
 						@endforeach
 				  </select>
-				  <input type="hidden" id="tahunId">
-				</div> <!-- End Input Tahun -->
-			</div> <!-- End Col-md-6 -->
+				</div>
+				<!-- End Input Tahun -->
+			</div>
+			<!-- End Col-md-6 -->
+			<!-- Col-md-6 -->
 			<div class="col-md-12">
-				<div class="form-group">
-					<label for="">Jenis Proses Pengadaan</label>
+				<!-- Input Jenis Proses Lelang -->
+				<label for="">Jenis Proses Pengadaan</label>
 					<select name="jenis_proses_lelang" id="jenis_proses_lelang" class="form-control">
 						<option value="0">--- Pilih Jenis Proses Pengadaan ----</option>
 						<option value="e-tendering">Tender</option>
 						<option value="e-purchasing">E-Purchasing</option>
 						<option value="non-tender">Non-Tender</option>
 					</select>
-					{{-- <input type="text" name="jenis_proses_lelang" class="form-control" value="E-Procurement" disabled> --}}
-				</div>
+				<!-- End Input Jenis Proses Lelang -->
 			</div>
-			<div class="col-md-12">
+			<!-- End Col-md-6 -->
+	
+		<!-- End Row -->
+		<!-- Input Kegiatan -->
+		<div class="col-md-12">
 		<div class="form-group">
-			<label for="">Kegiatan</label> <i class="fa fa-circle-o-notch fa-spin icon-loading" style="display:none"></i>
-			<select name="kegiatan_id" class="form-control selectpicker" data-live-search="true" id="selectKegiatanGetPaket">
-				<option value="">----- Pilih Kegiatan -----</option>
-				@foreach($Kegiatan as $kegiatan)
-				<option value="{{$kegiatan->id}}">{{$kegiatan->kegiatan}}</option>
-				@endforeach
-			</select>
+			<label for="">Kegiatan</label>
+			<input type="text" class="form-control" value="{{$paket["activity"]}}" disabled="">
+			
 		</div>
 	</div>
-	<div class="col-md-12">
+		<div class="col-md-12">
 		<div class="form-group">
 			<label for="">Paket</label>
-			<select name="paket_id" class="form-control selectpicker" data-live-search="true" id="changePaket">
-				<option value="">----- Pilih Paket-----</option>
-				@foreach($Daftar_paket as $daftar_paket)
-				<option value="{{$daftar_paket->id}}">{{$daftar_paket->paket}}</option>
-				@endforeach
-			</select>
-			<input type="hidden" id="limit_anggaran">
+			<input type="text" class="form-control" value="{{$paket["name"]}}" disabled="">
+			<input type="hidden" value="{{$paket["id"]}}" name="paket_id">
 		</div>
 	</div>
+		<!-- End Input Daftar Paket -->
+		<!-- Row -->
+		
+			<!-- Col-md-6 -->
 			<div class="col-md-12">
+				<!-- Input HPS -->
 				<div class="form-group" id="hps">
 					<label for="">HPS</label>
-					<input type="text" name="hps" class="form-control setMoney" placeholder="Rp" required>
-					<p class="validation-text">Nilai Inputan Melebihi Pagu</p>
+					<input type="text" name="hps" class="form-control setMoney" disabled value="Rp. {{number_format($paket["nominal"],0,',','.')}}">
+					<input type="hidden" value="{{$paket["nominal"]}}" name="hps">
 				</div>
+				<!-- End Input HPS -->
 			</div>
-			<!-- <div class="col-md-6">
-				<div class="form-group">
-					<label for="">Bidang / Sub Bidang</label>
-					<input type="text" name="kode_bidang" class="form-control" placeholder="Kode Bidang" required>
-				</div>
-			</div> -->
+			
+		<!-- End Row -->
+		<!-- Row -->
 		
-
-		
+			<!-- Col-md-4 -->
 			<div class="col-md-12">
+				<!-- Input Produk Akhir -->
 				<div class="form-group">
 					<label for="">Nomor Kontrak</label>
-					<input type="text" name="nomor_kontrak" class="form-control" placeholder="Nomor Kontrak" required>
+					<input type="text" name="nomor_kontrak" class="form-control" value="" required>
 				</div>
+				<!-- End Input Produk Akhir -->
 			</div>
+			<!-- End Col-md-4 -->
+			<!-- Col-md-4 -->
 			<div class="col-md-12">
+				<!-- Input Tempat Daftar -->
 				<div class="form-group">
 					<label for="">Tanggal BAST</label>
-					<input type="text" name="tgl_bast" class="datepicker form-control" placeholder="Tanggal BAST">
+					<input type="text" name="tgl_bast" class="datepicker form-control" value="<?php echo date("Y/m/d");?>" required>
 				</div>
+				<!-- End Tempat Daftar -->
 			</div>
 			<div class="col-md-12">
 				<div class="form-group">
 					<label for="">Nomor BAST</label>
-					<input type="text" name="nomor_bast" class="form-control" placeholder="Nomor BAST" required>
+					<input type="text" name="nomor_bast" class="form-control" value="" placeholder="Nomor BAST" required>
 				</div>
 			</div>
 			<div class="col-md-12">
 				<div class="form-group">
 					<label for="">Realisasi Fisik Paket</label>
-					<input type="text" name="realisasi-fisik-paket" class="form-control" placeholder="Realisasi Fisik Paket" required>
+					<input type="text" name="realisasi_fisik_paket" class="form-control" value="" placeholder="Realisasi Fisik Paket" required>
 				</div>
 			</div>
 			<div class="col-md-12">
 				<div class="form-group">
 					<label for="">Realisasi Keuangan Paket</label>
-					<input type="text" name="realisasi-keuangan-paket" class="form-control" placeholder="Realisasi Keuangan Paket" required>
+					<input type="text" name="realisasi_keuangan_paket" value="" class="form-control" placeholder="Realisasi Keuangan Paket" required>
 				</div>
 			</div>
-			
+			<!-- End Col-md-4 -->
+			<!-- Col-md-4 -->
 			<div class="col-md-12">
 				<div class="form-group" id="status1">
 					<label for="">Status</label>
@@ -134,6 +130,7 @@
 				  </select>
 				</div>
 			</div>
+			<!-- End Col-md-4 -->
 			<div class="col-md-12">
 				<div class="form-group" id="status2">
 					<label for="">Status</label>
@@ -144,10 +141,12 @@
 				  </select>
 				</div>
 			</div>
+		
+		
 			<div class="col-md-12">
 			<div class="form-group" id="rekanan1">
 				<label for="">Rekanan</label>
-				<input type="text" name="rekanan" class="form-control">
+				<input type="text" name="rekanan" value="" class="form-control">
 			</div>
 		</div>
 	<div class="col-md-12">
@@ -156,16 +155,19 @@
 				<input type="text" name="rekanan" disabled class="form-control">
 			</div>
 		</div>
-	
-	
-		<div class="col-md-12">
-			<div class="form-group">
-				<label for="">Nilai Kontrak</label>
-				<input type="text" class="form-control setMoney" name="nilai_kontrak"  placeholder="Rp" required>
-				<p class="validation-text">Nilai Inputan Melebihi Pagu</p>
+		
+			<div class="col-md-12">
+				<!-- Input Nilai Kontrak -->
+				<div class="form-group">
+					<label for="">Nilai Kontrak</label>
+					<input type="text" class="form-control setMoney" name="nilai_kontrak" value=""  required>
+					
+				</div>
+				<!-- End Input Nilai Kontrak -->
 			</div>
-		</div>
-		<div class="col-md-12">
+			<!-- End Col-md-6 -->
+			<!-- Col-md-6 -->
+			<div class="col-md-12">
 			<div class="form-group">
 				<label for="">Progres Pekerjaan</label>
 				<select name="status_kontrak" id="" class="form-control">
@@ -175,9 +177,10 @@
 				</select>
 			</div>
 		</div>
-	
-	
-		<div class="col-md-12">
+			<!-- End Col-md-6 -->
+		
+		
+			<div class="col-md-12">
 			<div class="form-group">
 				<label for="">Tanggal Mulai</label>
 				<input type="text" class="datepicker form-control" value="<?php echo date("Y/m/d");?>" name="tanggal_mulai" placeholder="Tanggal Mulai">
@@ -189,20 +192,20 @@
 				<input type="text" class="datepicker form-control" value="<?php echo date("Y/m/d");?>" name="tanggal_selesai" placeholder="Tanggal Selesai">
 			</div>
 		</div>
-	
+			<!-- End Col-md-6 -->
 		
-		<input type="hidden" name="lokasi_id" value="1">
+		<!-- End Row -->
 		<div class="col-md-12">
-			<div class="form-group">
-		<button type="submit" class="btn btn-primary btn-lg">Submit</button>
-	</div>
+		<input type="hidden" name="id" value="">
+		<button type="submit" class="btn btn-primary btn-lg" style="margin-bottom: 10px;">Update</button>
 	</div>
 	</div>
 	</form>
-
+	<!-- END FORM PAKET LELANG -->
 @endsection
 
 @section('script')
+
 <!-- Plugin Mask Money -->
 <script type="text/javascript" src="{{URL::to('source/plugins/jquery-maskmoney/dist/jquery.maskMoney.min.js')}}"></script>
 <script type="text/javascript" src="{{URL::to('source/plugins/datepicker/js/bootstrap-datepicker.js')}}"></script>
@@ -233,11 +236,10 @@
 			$(".validation-text").fadeOut("fast");
 		}
 	});
-
 	/* onjenis proses lelang  */
 	$("#status2").hide();
 	$("#jenis_proses_lelang").change(function() {
-		
+		$("#status2").hide();
 		var jenis_proses_lelang = $(this).val();
 		if(jenis_proses_lelang == "e-tendering") {
 			$("#hps").show();
@@ -249,7 +251,6 @@
 			$("#status1").hide();
 		}
 	});
-
 	$("#rekanan1").hide();
 	$("#status").change(function() {
 		

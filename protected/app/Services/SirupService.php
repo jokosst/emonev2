@@ -555,4 +555,9 @@ class SirupService
         }
         return $this;
     }
-}
+
+    public function coba (){
+       return "Matikan Laptop";
+    }
+
+    }

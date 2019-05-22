@@ -10,8 +10,8 @@
 			<div class="col-md-12">
 		<div class="form-group">
 			<label for="">Perangkat Daerah</label>
-			<input type="text"class="form-control" value="{{$realisasi->skpd->skpd}}" disabled="true">
-			<input type="hidden" name="skpd_id" value="{{$realisasi->skpd_id}}">
+			<input type="text"class="form-control" value="{{$Skpd->skpd}}" disabled="true">
+			<input type="hidden" name="skpd_id" value="{{$Skpd->id}}">
 		</div>
 	</div>
 		<!-- End Input SKPD -->
@@ -22,8 +22,8 @@
 				<!-- Input Tahun -->
 				<div class="form-group">
 					<label for="">Tahun</label>
-					<input type="text"class="form-control" value="{{$realisasi->tahun->tahun}}" disabled="true">
-					<input type="hidden" name="tahun_id" value="{{$realisasi->tahun_id}}">
+					<input type="text"class="form-control" value="{{$Tahun->tahun}}" disabled="true">
+					<input type="hidden" name="tahun_id" value="{{$Tahun->id}}">
 				</div>
 				<!-- End Input Tahun -->
 			</div>
@@ -33,8 +33,8 @@
 				<!-- Input Bulan -->
 				<div class="form-group">
 					<label for="">Bulan</label>
-					<input type="text"class="form-control" value="{{ Convert::ubah_bulan($realisasi->bulan) }}" disabled="true">
-					<input type="hidden" name="bulan" value="{{$realisasi->bulan}}">
+					<input type="text"class="form-control" value="{{ Convert::ubah_bulan($bulan) }}" disabled="true">
+					<input type="hidden" name="bulan" value="{{$bulan}}">
 				</div>
 				<!-- End Input Bulan -->
 			</div>
@@ -42,7 +42,7 @@
 			<div class="col-md-4">
 				<div class="form-group">
 					<label for="">Pagu Kegiatan</label>
-					<input type="text" value="{{ "Rp ".number_format($realisasi->kegiatan->pagu,0,',','.'); }}" class="form-control" disabled="" id="limit_anggaran">
+					<input type="text" value="Rp. {{number_format($pagu_kegiatan,0,',','.')}}" class="form-control" disabled="" >
 				</div>
 			</div>
 		
@@ -50,8 +50,8 @@
 			<div class="col-md-12">
 		<div class="form-group">
 			<label for="">Kegiatan</label>
-			<input type="text"class="form-control" value="{{$realisasi->kegiatan->kegiatan}}" disabled="true">
-			<input type="hidden" name="kegiatan_id" value="{{$realisasi->kegiatan_id}}">
+			<input type="text"class="form-control" value="{{$nama_kegiatan}}" disabled="true">
+			<input type="hidden" name="kegiatan_id" value="{{$kegiatan_id}}">
 		</div>
 		</div>
 		<!-- Row -->
@@ -71,7 +71,7 @@
 				<!-- Input Realisasi Keuangan -->
 				<div class="form-group">
 					<label for="">Realisasi Keuangan</label>
-					<input type="text" name="keuangan" class="form-control" required placeholder="%">
+					<input type="text" name="uang" class="form-control" required placeholder="%">
 				</div>
 				<!-- End Input Realisasi Keuangan -->
 			</div>
@@ -80,7 +80,6 @@
 				<div class="form-group">
 					<label for="">Realisasi Keuangan</label>
 					<input type="text" name="pengeluaran" class="form-control setMoney" required placeholder="Rp">
-					<p class="validation-text">Nilai Inputan Melebihi Pagu</p>
 				</div>
 				<!-- End Input Realisasi Keuangan -->
 			</div>

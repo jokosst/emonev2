@@ -2,7 +2,6 @@
 
 @section('content')
 	<h2 class="menu__header">Kegiatan Perangkat Daerah</h2>
-	<a href="{{URL::to('emonevpanel/kegiatan/create')}}" class="btn btn-primary" style="float:right;margin-top:10px;">Tambah Kegiatan</a>
 
 	<!-- FORM SORTIR KEGIATAN -->
 	<form action="" class="form-inline" method="GET" role="form" data-toggle="validator" >
@@ -19,11 +18,32 @@
 					@endforeach
 				</select>
 		</div>
+		<div class="form-group">
+			<label for="">Program</label>
+				<select name="skpd_id" class="form-control" required>
+					<option value="">------ Pilih Program ----------</option>
+					<!-- Menampilkan Semua SKPD -->
+					
+				</select>
+		</div>
 		@else
 			<div class="form-group">
 				<label for="">Perangkat Daerah</label>
 				<input type="text" value="{{$Skpd->skpd}}" disabled="" class="form-control" style="width:500px;">
 				<input type="hidden" name="skpd_id" value="{{$Skpd->id}}">
+			</div>
+			<div class="form-group">
+				<label for="">Program</label>
+				<select name="program_id" class="form-control" required>
+					<option value="">------ Pilih Program ----------</option>					
+					@foreach($Program as $program)
+					@if(isset($idProgram))
+					<option @if(isset($program->id) && $idProgram == "$program->id") selected  @endif value="{{$program->id}}">{{$program->nama}}</option>
+					@else
+						<option value="{{$program->id}}">{{$program->nama}}</option>
+						@endif
+					@endforeach
+				</select>
 			</div>
 		@endif
 		<!-- pilihan memilih Tahun -->
@@ -56,21 +76,30 @@
       </tr>
     </thead>
     <tbody>
-      @if(Auth::user()->level == 'adminskpd' || $data_sirup != "0")
-	      @foreach($data_sirup as $key=>$data)
+    	@if(isset($idProgram))
+     @foreach($Kegiatan as $key=>$data)
 	      	<tr>
 	      		<td>{{$key + 1}}</td>
-	      		<td></td>
-	      		<td> </td>
-	      		<td></td>
+	      		<td>{{$data->nama}}</td>
+	      		<td>Rp. {{number_format($data->pagu,0,',','.')}}</td>
+	      		<td>{{$data->kode_kegiatans}}</td>
 	    			
-	          <td><a class="btn btn-warning btn-fill btn-xs" href="#" data-toggle="tooltip" data-placement="bottom" title="Detail"><i class="fa fa-search"></i></a>
-	          	<a class="btn btn-success btn-fill btn-xs" href="#" data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fa fa-pencil"></i></a>
-           <a class="btn btn-danger btn-fill btn-xs" href="#" data-toggle="tooltip" data-placement="bottom" title="Hapus" onclick="return confirmSubmit()"><i class="fa fa-trash"></i></a>
+	          <td><a class="btn btn-warning btn-fill btn-xs" href="#" data-toggle="tooltip" data-placement="bottom" title="Detail"><i class="fa fa-search"></i> Detail</a>
+	          	<a class="btn btn-success btn-fill btn-xs" href="#" data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fa fa-pencil"></i> Edit</a>
+           
                             
                                </td> 
 	      	</tr>
-				@endforeach
+			@endforeach	
+			@else
+<tr>
+	      		<td></td>
+	      		<td></td>
+	      		<td></td>
+	      		<td></td>	    			
+	          <td></td> 
+	      	</tr>
+			@endif
 				<script>
                   function confirmSubmit()
                     {
@@ -81,7 +110,7 @@
                             return false ;
                     }
                 </script>
-      @endif
+   
     </tbody>
 	</table>
 @endsection

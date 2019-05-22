@@ -28,7 +28,8 @@ class PaketController extends BaseController {
 		return View::make('dashboard.paket.indexDaftarPaket',$data);
 	}
 	public function paket_sirup() {
-		$satker = "102901";
+		$satker = Auth::user()->pegawai->skpd->kode_skpd_publik;
+		// $satker = "102901";
 		$tahun = Tahun::where('tahun',date("Y"))->first()->tahun;
 		$tahun_id = Tahun::where('tahun',date("Y"))->first()->id;
 
@@ -185,6 +186,7 @@ $obj1 = $dataDl1->getElementsByTagName("dd");
         //return Response::json($data);
 		return View::make('dashboard.paket.indexProgrespaket',$data);
 	}
+	
 
 
 

@@ -44,13 +44,33 @@ Route::group(array('before' => 'auth', 'prefix' => 'emonevpanel'),function() {
 	Route::get('/package-list', "SirupController@packageList");
 // batas sirup
 //perubahan
-Route::get('daftar-paket','PaketController@indexDaftarPaket');
-Route::get('paket_sirup','PaketController@paket_sirup');
-Route::get('program','ProgramController@indexProgram');
-Route::get('/program1', "SirupController@program");
+// Route::get('daftar-paket','PaketController@indexDaftarPaket');
+
+// Route::get('program','ProgramController@indexProgram');
+
 // Route::get('paket_sirup/detail/{id}','PaketController@detailPaketSirup');
+// Route::get('kegiatan','KegiatanController@indexKegiatan');
+// Route::get('progres-paket','PaketController@indexProgresPaket');
+// Route::get('paket-lelang/edit/{id}','PaketController@editPaketLelang');
+// Route::post('paket-lelang/update','PaketController@updatePaketLelang');	
+// Route::get('progres-lelang/detail/{id}','PaketController@detailProgresLelang');
+	// Route::get('realisasi','RealisasiController@indexRealisasi');
+	// Route::get('realisasi/edit/{id}','RealisasiController@editRealisasi');
+	// Route::post('realisasi/update','RealisasiController@updateRealisasi');
+// Route::get('realisasi/detail/{id}','RealisasiController@detailRealisasi');
+
+Route::get('program', "SirupController@program");
+Route::get('kegiatan',"SirupController@activity");
+Route::get('paket_sirup','PaketController@paket_sirup');
 Route::get('paket_sirup/detail/{id}', "SirupController@packageDetail");
-	
+Route::get('progres-paket','SirupController@indexProgresPaket');
+Route::get('progres-paket/edit/{id}','SirupController@editProgres');
+Route::post('progres-paket/update','SirupController@updateProgres');
+Route::get('progres-paket/detail/{id}','SirupController@detailProgres');
+Route::get('realisasi','SirupController@realisasiKegiatan');
+Route::get('realisasi/edit/{id}','SirupController@editRealisasi');
+Route::post('realisasi/update','SirupController@updateRealisasi');
+Route::get('realisasi/detail/{id}','SirupController@detailRealisasi');
 	
 	Route::post('program/insert','ProgramController@insertProgram');
 	Route::post('/program/update','ProgramController@updateProgram');
@@ -64,7 +84,7 @@ Route::get('paket_sirup/detail/{id}', "SirupController@packageDetail");
 	Route::post('apbn/update','ApbnController@updateApbn');
 	Route::get('apbn/hapus/{id}','ApbnController@hapusApbn');
 
-	Route::get('kegiatan','KegiatanController@indexKegiatan');
+	
 	Route::get('kegiatan/create','KegiatanController@createKegiatan');
 	Route::post('kegiatan/create','KegiatanController@insertKegiatan');
 	Route::get('/kegiatan/detail/{id}','KegiatanController@detailKegiatan');
@@ -73,43 +93,42 @@ Route::get('paket_sirup/detail/{id}', "SirupController@packageDetail");
 	Route::get('kegiatan/hapus/{id}','KegiatanController@hapusKegiatan');
 
 	
-	Route::get('daftar-paket/create','PaketController@createDaftarPaket');
-	Route::post('daftar-paket/create','PaketController@insertDaftarPaket');
-	Route::post('cari_paket','PaketController@cari_paket');
-	Route::post('cari_satker','PaketController@cari_satker');
-	Route::get('daftar-paket/detail/{id}','PaketController@detailDaftarPaket');
-	Route::get('daftar-paket/edit/{id}','PaketController@editDaftarPaket');
-	Route::post('daftar-paket/update','PaketController@updateDaftarPaket');
-	Route::get('daftar-paket/hapus/{id}','PaketController@hapusDaftarPaket');
+	// Route::get('daftar-paket/create','PaketController@createDaftarPaket');
+	// Route::post('daftar-paket/create','PaketController@insertDaftarPaket');
+	// Route::post('cari_paket','PaketController@cari_paket');
+	// Route::post('cari_satker','PaketController@cari_satker');
+	// Route::get('daftar-paket/detail/{id}','PaketController@detailDaftarPaket');
+	// Route::get('daftar-paket/edit/{id}','PaketController@editDaftarPaket');
+	// Route::post('daftar-paket/update','PaketController@updateDaftarPaket');
+	// Route::get('daftar-paket/hapus/{id}','PaketController@hapusDaftarPaket');
 	
 
 	Route::get('paket-lelang','PaketController@indexPaketLelang');
 	Route::get('paket-lelang/create','PaketController@createPaketLelang');
 	Route::post('paket-lelang/create','PaketController@insertPaketLelang');
 	Route::get('paket-lelang/detail/{id}','PaketController@detailPaketLelang');
-	Route::get('paket-lelang/edit/{id}','PaketController@editPaketLelang');
-	Route::post('paket-lelang/update','PaketController@updatePaketLelang');
+	
 	Route::get('paket-lelang/hapus/{id}','PaketController@hapusPaketLelang');
 
-	Route::get('progres-paket','PaketController@indexProgresPaket');
+	
 
 	Route::get('progres-lelang','PaketController@indexProgresLelang');
 	Route::get('progres-lelang/create','PaketController@createProgresLelang');
 	Route::post('progres-lelang/create','PaketController@insertProgresLelang');
-	Route::get('progres-lelang/detail/{id}','PaketController@detailProgresLelang');
+	
 	Route::get('progres-lelang/edit/{id}','PaketController@editProgresLelang');
 	Route::post('progres-lelang/update','PaketController@updateProgresLelang');
 	Route::get('progres-lelang/hapus/{id}','PaketController@hapusProgresLelang');
 
-	Route::get('realisasi','RealisasiController@indexRealisasi');
+	
 	/* Bagian ini dinonaktifkan dulu karena belum diperlukan
 	---------------------------------------------------------
 	Route::get('realisasi/create','RealisasiController@createRealisasi');
 	Route::post('realisasi/create','RealisasiController@insertRealisasi');
 	*/
-	Route::get('realisasi/detail/{id}','RealisasiController@detailRealisasi');
-	Route::get('realisasi/edit/{id}','RealisasiController@editRealisasi');
-	Route::post('realisasi/update','RealisasiController@updateRealisasi');
+	
+	
+	
 
 	Route::get('rencana-realisasi','RealisasiController@indexRencanaRealisasi');
 	Route::post('rencana-realisasi','RealisasiController@updateRencanaRealisasi');

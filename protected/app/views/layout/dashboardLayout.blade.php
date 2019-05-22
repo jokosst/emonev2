@@ -46,8 +46,8 @@
 							<ul class="dropdown-menu">
 								<li><a href="{{URL::to('/emonevpanel/program')}}">Program</a></li>
 								<li><a href="{{URL::to('/emonevpanel/kegiatan')}}">Kegiatan</a></li>
-								<li><a href="{{URL::to('/emonevpanel/paket_sirup')}}">Daftar Paket (SIRUP)</a></li>
-								<li><a href="{{URL::to('/emonevpanel/daftar-paket')}}">Daftar Paket</a></li>
+								<li><a href="{{URL::to('/emonevpanel/paket_sirup')}}">Daftar Paket</a></li>
+								</li>
 								
 								
 							</ul>
