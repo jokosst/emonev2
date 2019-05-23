@@ -120,6 +120,15 @@ class SirupController extends BaseController
         // dd($data['paket']);
           return View::make('dashboard.paket.detailPaketSirup',$data);
     }
+
+    public function getActivity($id) {
+        $act    = $this->sirupService->getPackageDetail($id);
+        if( $act ) {
+            return $act['activity'];
+        }
+        return '';
+    }
+
     public function indexProgresPaket() {
         $data['menu'] = 'progres-paket';
 
@@ -179,16 +188,6 @@ $params = implode('&', $params);
 $url = "https://sirup.lkpp.go.id/sirup/datatablectr/dataruppenyediasatker?$params";
 $getData = file_get_contents($url);
 $dataData = json_decode($getData)->aaData;
-foreach ($dataData as &$d) {
-    $id =  $d[0];
-    //  $act = $this->sirupService->getPackageDetail($id);
-    // if( $act ) {
-    //     array_push($d, $act['activity']);
-    // }
-    // sleep(0.5); 
-}
-// unset($d); 
-
 $data['data_sirup'] = $dataData; 
         return View::make('dashboard.paket.indexProgrespaket',$data);
     }
@@ -304,6 +303,7 @@ DB::table('progres_lelang')->where('lelang_id',$id)->update(array('tahun_id'=>$d
         $data['Skpd'] = Skpd::getSkpd($skpd_id);
         $data['bulan'] = date("m");
 
+        $data['id_program'] = Input::get('id_program');
         $data['nama_kegiatan'] = Input::get('nama_kegiatan');
         $data['pagu_kegiatan'] = Input::get('pagu_kegiatan');
         $data['kegiatan_id'] = $id;
@@ -320,11 +320,12 @@ DB::table('progres_lelang')->where('lelang_id',$id)->update(array('tahun_id'=>$d
     }
     public function updateRealisasi() {
         $skpd_id = Input::get('skpd_id');
+        $id_program = Input::get('id_program');
         $kegiatan_id = Input::get('kegiatan_id');
         $tahun_id = Input::get('tahun_id');
         $punya_paket = 1;
         $bulan = Input::get('bulan');
-        $bulan_sekarang = Date('m');
+        $bulan_sekarang = Date('m') - 1;
         $fisik = Input::get('fisik');
         $uang = Input::get('uang');
         $pengeluaran = str_replace(['Rp','.'], "", Input::get('pengeluaran'));
@@ -335,13 +336,14 @@ DB::table('progres_lelang')->where('lelang_id',$id)->update(array('tahun_id'=>$d
         }else{
         DB::table('realisasi_kegiatan')->insert(array('skpd_id'=>$skpd_id,'kegiatan_id'=>$kegiatan_id,'tahun_id'=>$tahun_id,'punya_paket'=>$punya_paket,'fisik'=>$fisik,'uang'=>$uang,'pengeluaran'=>$pengeluaran,'bulan'=>$bulan));
     }
-        return Redirect::to('emonevpanel/realisasi');
+        return Redirect::to('emonevpanel/realisasi?skpd_id='.$skpd_id.'&program_id='.$id_program.'&tahun_id='.$tahun_id.'&bulan='.$bulan_sekarang.' ');
     }
     public function detailRealisasi($id) {
         $skpd_id = Auth::user()->pegawai->skpd->id;
         $data['Tahun'] = Tahun::where('tahun',date("Y"))->first();
         $data['Skpd'] = Skpd::getSkpd($skpd_id);
         $data['bulan'] = date("m");
+        $data['id_program'] = Input::get('id_program');
         $data['nama_kegiatan'] = Input::get('nama_kegiatan');
         $data['pagu_kegiatan'] = Input::get('pagu_kegiatan');
         $data['kegiatan_id'] = $id;

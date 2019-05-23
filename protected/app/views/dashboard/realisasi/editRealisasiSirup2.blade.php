@@ -84,6 +84,7 @@
 				<!-- End Input Realisasi Keuangan -->
 			</div>
 			<!-- End Col-md-6 -->
+			<input type="hidden" name="id_program" value="{{$id_program}}">
 			<button type="submit" class="btn btn-primary btn-lg">Update</button>
 		</div>
 		<!-- End Row -->

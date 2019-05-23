@@ -51,7 +51,7 @@
 	<thead>
   <tr>
   	<th>No</th>
-    <th>ID</th>
+    <th>RUP</th>
     <th>Nama Kegiatan</th>
     <th>Nama Paket</th>
      <th>Nama Rekanan</th>
@@ -63,9 +63,9 @@
 <tbody>
 	@foreach($data_sirup as $key=>$data)
 		<tr>
-			<td>{{$key+1}}</td>
-    		<td>{{$data[0]}}</td>
-        <td></td>
+			<td width="10px;">{{$key+1}}</td>
+    		<td class="idPackage">{{$data[0]}}</td>
+        <td class="act" width="120px;"></td>
         <td>{{$data[1]}}</td>
 <?php
         $paket_id = $data[0];
@@ -108,10 +108,47 @@
 @endsection
 
 @section('script')
-	<script>
-	$('#table_id').DataTable();
+  <script>
+  $('#table_id').DataTable();
 $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip();   
 });
 </script>
+<script type="text/javascript">
+  
+  function getActivity() {
+    var baseUrl = 'http://localhost'
+    var ids = document.getElementsByClassName('idPackage')
+    var acts = document.getElementsByClassName('act')
+    
+    Array.prototype.forEach.call(ids, function(obj, k) {
+      let id = obj.innerHTML
+      acts[k].innerHTML = 'Loading...'
+      var xhttp = new XMLHttpRequest()
+      xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+             // Typical action to be performed when the document is ready:
+             acts[k].innerHTML = xhttp.responseText;
+          }
+      }
+      xhttp.open("GET", baseUrl + "/emonev/emonevpanel/kegiatan/" + id, true)
+      xhttp.send()
+    })
+
+    getPaginateButton()
+  }
+
+  function getPaginateButton() {
+    var pB = document.getElementsByClassName('paginate_button')
+
+    Array.from(pB).forEach(function(el) {
+      el.addEventListener('click', getActivity)
+    })
+  }
+
+  getActivity()
+  getPaginateButton()
+
+</script>
+
 @endsection

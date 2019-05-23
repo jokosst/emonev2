@@ -50,7 +50,7 @@
 
 					
 				</table>
-<a href="{{URL::to('emonevpanel/realisasi/edit/'.$kegiatan_id.'?nama_kegiatan='.$nama_kegiatan.'&pagu_kegiatan='.$pagu_kegiatan)}}" class="btn btn-warning" style="margin-top: 20px; margin-left:15px;">Edit Realisasi</a>
+<a href="{{URL::to('emonevpanel/realisasi/edit/'.$kegiatan_id.'?id_program='.$id_program.'&nama_kegiatan='.$nama_kegiatan.'&pagu_kegiatan='.$pagu_kegiatan)}}" class="btn btn-warning" style="margin-top: 20px; margin-left:15px;">Edit Realisasi</a>
 			</div>
 			
 			

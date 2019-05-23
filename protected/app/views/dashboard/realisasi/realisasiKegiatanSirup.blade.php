@@ -141,13 +141,13 @@
 				 echo"<td>",$uang,"%</td>";
 
 			}else{
-				 echo"<td>0%</td><td>0%</td><td>Rp. 0</td>";
+				 echo"<td>Rp. 0</td><td>0%</td><td>0%</td>";
 			}
 
 
 			?>
-			<td><a class="btn btn-warning btn-fill btn-xs" href="realisasi/detail/{{$data->id}}?nama_kegiatan={{$data->nama}}&pagu_kegiatan={{$data->pagu}}" data-toggle="tooltip" data-placement="bottom" title="Detail"><i class="fa fa-search"></i></a>
-	          	<a class="btn btn-success btn-fill btn-xs" href="realisasi/edit/{{$data->id}}?nama_kegiatan={{$data->nama}}&pagu_kegiatan={{$data->pagu}}" data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fa fa-pencil"></i></a>
+			<td><a class="btn btn-warning btn-fill btn-xs" href="realisasi/detail/{{$data->id}}?id_program={{$data->id_program}}&nama_kegiatan={{$data->nama}}&pagu_kegiatan={{$data->pagu}}" data-toggle="tooltip" data-placement="bottom" title="Detail"><i class="fa fa-search"></i></a>
+	          	<a class="btn btn-success btn-fill btn-xs" href="realisasi/edit/{{$data->id}}?id_program={{$data->id_program}}&nama_kegiatan={{$data->nama}}&pagu_kegiatan={{$data->pagu}}" data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fa fa-pencil"></i></a>
            </td> 
 		</tr>
 	@endforeach	
