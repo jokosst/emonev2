@@ -72,6 +72,34 @@ class SirupController extends BaseController
         return View::make('dashboard.kegiatan.indexKegiatanSirup',$data);
     }
 
+    public function updatePagu() {
+     $data['skpd_id'] = Auth::user()->pegawai->skpd->id;
+     $skpd_id = $data['skpd_id'];
+     $data['program_id'] = Input::get('id_program'); 
+     $program_id = $data['program_id'];
+     $data['kegiatan_id_sirup'] = Input::get('id');
+     $kegiatan_id_sirup = $data['kegiatan_id_sirup'];
+     $data['tahun_id'] = Tahun::where('tahun',date('Y'))->first()->id;
+     $tahun_id = $data['tahun_id'];
+     $data['pegawai_id'] = Auth::user()->pegawai->id;
+     $data['kegiatan'] = Input::get('kegiatan'); 
+     $data['slug_kegiatan'] = Convert::make_slug(Input::get('kegiatan'));
+     $data['kode_anggaran'] = Input::get('kode_kegiatan');
+     $data['pagu'] = str_replace(['Rp','.'], '', Input::get('pagu'));
+     $data['pagu_awal'] = str_replace(['Rp','.'], '', Input::get('pagu'));
+
+     $kegiatan = DB::table('kegiatan')->where('kegiatan_id_sirup',$kegiatan_id_sirup)->first();
+     if (isset($kegiatan->id)) {
+      DB::table('kegiatan')->where('kegiatan_id_sirup',$kegiatan_id_sirup)->update(array('pagu'=>$data['pagu'],'pagu_awal'=>$data['pagu_awal']));  
+
+     }else{
+        $kegiatan_id = Kegiatan::insertGetId($data);
+     }
+     
+     return Redirect::to('emonevpanel/kegiatan?skpd_id='.$skpd_id.'&program_id='.$program_id.'&tahun_id='.$tahun_id.' '); 
+         
+    }
+
     
 
     /**
@@ -300,14 +328,15 @@ DB::table('progres_lelang')->where('lelang_id',$id)->update(array('tahun_id'=>$d
     public function editRealisasi($id) {
         $skpd_id = Auth::user()->pegawai->skpd->id;
         $data['Tahun'] = Tahun::where('tahun',date("Y"))->first();
+        $tahun_id = Tahun::where('tahun',date("Y"))->first()->id;
         $data['Skpd'] = Skpd::getSkpd($skpd_id);
-        $data['bulan'] = date("m");
-
+        $data['bulan'] = Input::get('bulan');
+        $bulan = $data['bulan'];
         $data['id_program'] = Input::get('id_program');
         $data['nama_kegiatan'] = Input::get('nama_kegiatan');
         $data['pagu_kegiatan'] = Input::get('pagu_kegiatan');
         $data['kegiatan_id'] = $id;
-        $realisasi_kegiatan = Realisasi::where('kegiatan_id',$id)->first();
+        $realisasi_kegiatan = Realisasi::where('kegiatan_id',$id)->where('tahun_id',$tahun_id)->where('bulan',$bulan)->first();
         if (isset($realisasi_kegiatan->id)) {
             $data['realisasi_kegiatan'] = $realisasi_kegiatan;
             return View::make('dashboard.realisasi.editRealisasiSirup2',$data);
@@ -325,29 +354,31 @@ DB::table('progres_lelang')->where('lelang_id',$id)->update(array('tahun_id'=>$d
         $tahun_id = Input::get('tahun_id');
         $punya_paket = 1;
         $bulan = Input::get('bulan');
-        $bulan_sekarang = Date('m') - 1;
+        // $bulan_sekarang = Date('m') - 1;
         $fisik = Input::get('fisik');
         $uang = Input::get('uang');
         $pengeluaran = str_replace(['Rp','.'], "", Input::get('pengeluaran'));
 
-       $realisasi_kegiatan = Realisasi::where('kegiatan_id',$kegiatan_id)->first(); 
+       $realisasi_kegiatan = Realisasi::where('kegiatan_id',$kegiatan_id)->where('tahun_id',$tahun_id)->where('bulan',$bulan)->first(); 
         if (isset($realisasi_kegiatan->id)) {
              DB::table('realisasi_kegiatan')->where('kegiatan_id',$kegiatan_id)->update(array('skpd_id'=>$skpd_id,'kegiatan_id'=>$kegiatan_id,'tahun_id'=>$tahun_id,'punya_paket'=>$punya_paket,'fisik'=>$fisik,'uang'=>$uang,'pengeluaran'=>$pengeluaran,'bulan'=>$bulan));
         }else{
         DB::table('realisasi_kegiatan')->insert(array('skpd_id'=>$skpd_id,'kegiatan_id'=>$kegiatan_id,'tahun_id'=>$tahun_id,'punya_paket'=>$punya_paket,'fisik'=>$fisik,'uang'=>$uang,'pengeluaran'=>$pengeluaran,'bulan'=>$bulan));
     }
-        return Redirect::to('emonevpanel/realisasi?skpd_id='.$skpd_id.'&program_id='.$id_program.'&tahun_id='.$tahun_id.'&bulan='.$bulan_sekarang.' ');
+        return Redirect::to('emonevpanel/realisasi?skpd_id='.$skpd_id.'&program_id='.$id_program.'&tahun_id='.$tahun_id.'&bulan='.$bulan.' ');
     }
     public function detailRealisasi($id) {
         $skpd_id = Auth::user()->pegawai->skpd->id;
         $data['Tahun'] = Tahun::where('tahun',date("Y"))->first();
+        $tahun_id = Tahun::where('tahun',date("Y"))->first()->id;
         $data['Skpd'] = Skpd::getSkpd($skpd_id);
-        $data['bulan'] = date("m");
+        $data['bulan'] = Input::get('bulan');
+        $bulan = $data['bulan'];
         $data['id_program'] = Input::get('id_program');
         $data['nama_kegiatan'] = Input::get('nama_kegiatan');
         $data['pagu_kegiatan'] = Input::get('pagu_kegiatan');
         $data['kegiatan_id'] = $id;
-        $realisasi_kegiatan = Realisasi::where('kegiatan_id',$id)->first();
+        $realisasi_kegiatan = Realisasi::where('kegiatan_id',$id)->where('tahun_id',$tahun_id)->where('bulan',$bulan)->first();
         if (isset($realisasi_kegiatan->id)) {
             $data['realisasi_kegiatan'] = $realisasi_kegiatan;
         return View::make('dashboard.realisasi.detailRealisasiSirup',$data);

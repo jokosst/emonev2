@@ -25,12 +25,21 @@
 			<tr>
 				<td>bulan</td>
 				<td>&nbsp;:&nbsp;</td>
-				<td>{{ Convert::ubah_bulan($bulan) }}</td>
+				<td>{{ Convert::ubah_bulan($realisasi_kegiatan->bulan) }}</td>
 			</tr>
 			<tr>
 				<td>Pagu</td>
 				<td>&nbsp;:&nbsp;</td>
-				<td>Rp. {{number_format($pagu_kegiatan,0,',','.')}}</td>
+				<?php
+$kegiatan_id_sirup = $kegiatan_id;
+$kegiatan = DB::table('kegiatan')->where('kegiatan_id_sirup',$kegiatan_id_sirup)->first();
+if (isset($kegiatan->id)) {
+	$pagu = $kegiatan->pagu;
+	echo"<td>Rp. ",number_format($pagu,0,',','.'),"</td>";
+	}else{
+		echo"<td>Rp. ",number_format($pagu_kegiatan,0,',','.'),"</td>";	
+	}
+			?>
 			</tr>
 			<tr>
 				<td>Pengeluaran</td>
@@ -50,7 +59,7 @@
 
 					
 				</table>
-<a href="{{URL::to('emonevpanel/realisasi/edit/'.$kegiatan_id.'?id_program='.$id_program.'&nama_kegiatan='.$nama_kegiatan.'&pagu_kegiatan='.$pagu_kegiatan)}}" class="btn btn-warning" style="margin-top: 20px; margin-left:15px;">Edit Realisasi</a>
+<a href="{{URL::to('emonevpanel/realisasi/edit/'.$kegiatan_id.'?id_program='.$id_program.'&nama_kegiatan='.$nama_kegiatan.'&pagu_kegiatan='.$pagu_kegiatan.'&bulan='.$realisasi_kegiatan->bulan)}}" class="btn btn-warning" style="margin-top: 20px; margin-left:15px;">Edit Realisasi</a>
 			</div>
 			
 			

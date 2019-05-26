@@ -128,10 +128,17 @@
 		<tr>
 			<td>{{$key + 1}}</td>
 			<td>{{$data->nama}}</td>
-			<td>{{ "Rp ".number_format($data->pagu,0,',','.'); }}</td>
 			<?php
+
 			$kegiatan_id = $data->id;
-			$realisasi_kegiatan = DB::table('realisasi_kegiatan')->where('kegiatan_id',$kegiatan_id)->first();
+$kegiatan = DB::table('kegiatan')->where('kegiatan_id_sirup',$kegiatan_id)->first();
+if (isset($kegiatan->id)) {
+	$pagu = $kegiatan->pagu;
+	echo"<td>Rp. ",number_format($pagu,0,',','.'),"</td>";
+	}else{
+	echo"<td>Rp. ",number_format($data->pagu,0,',','.'),"</td>";
+	}
+			$realisasi_kegiatan = DB::table('realisasi_kegiatan')->where('kegiatan_id',$kegiatan_id)->where('tahun_id',$tahun_id)->where('bulan',$bulan)->first();
 			if (isset($realisasi_kegiatan->id)) {
 				$pengeluaran = $realisasi_kegiatan->pengeluaran;
 				$fisik = $realisasi_kegiatan->fisik;
@@ -146,8 +153,8 @@
 
 
 			?>
-			<td><a class="btn btn-warning btn-fill btn-xs" href="realisasi/detail/{{$data->id}}?id_program={{$data->id_program}}&nama_kegiatan={{$data->nama}}&pagu_kegiatan={{$data->pagu}}" data-toggle="tooltip" data-placement="bottom" title="Detail"><i class="fa fa-search"></i></a>
-	          	<a class="btn btn-success btn-fill btn-xs" href="realisasi/edit/{{$data->id}}?id_program={{$data->id_program}}&nama_kegiatan={{$data->nama}}&pagu_kegiatan={{$data->pagu}}" data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fa fa-pencil"></i></a>
+			<td><a class="btn btn-warning btn-fill btn-xs" href="realisasi/detail/{{$data->id}}?id_program={{$data->id_program}}&nama_kegiatan={{$data->nama}}&pagu_kegiatan={{$data->pagu}}&bulan={{$bulan}}" data-toggle="tooltip" data-placement="bottom" title="Detail"><i class="fa fa-search"></i></a>
+	          	<a class="btn btn-success btn-fill btn-xs" href="realisasi/edit/{{$data->id}}?id_program={{$data->id_program}}&nama_kegiatan={{$data->nama}}&pagu_kegiatan={{$data->pagu}}&bulan={{$bulan}}" data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fa fa-pencil"></i></a>
            </td> 
 		</tr>
 	@endforeach	

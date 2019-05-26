@@ -60,6 +60,7 @@ Route::group(array('before' => 'auth', 'prefix' => 'emonevpanel'),function() {
 // Route::get('realisasi/detail/{id}','RealisasiController@detailRealisasi');
 //disini
 Route::get('kegiatan/{id}', 'SirupController@getActivity');
+Route::post('kegiatan/updatePagu','SirupController@updatePagu');
 Route::get('program', "SirupController@program");
 Route::get('kegiatan',"SirupController@activity");
 Route::get('paket_sirup','PaketController@paket_sirup');

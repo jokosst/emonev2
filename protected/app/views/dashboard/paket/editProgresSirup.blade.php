@@ -36,7 +36,6 @@
 				<!-- Input Jenis Proses Lelang -->
 				<label for="">Jenis Proses Pengadaan</label>
 					<select name="jenis_proses_lelang" id="jenis_proses_lelang" class="form-control">
-						<option value="0">--- Pilih Jenis Proses Pengadaan ----</option>
 						<option value="e-tendering">Tender</option>
 						<option value="e-purchasing">E-Purchasing</option>
 						<option value="non-tender">Non-Tender</option>
@@ -239,7 +238,7 @@
 	/* onjenis proses lelang  */
 	$("#status2").hide();
 	$("#jenis_proses_lelang").change(function() {
-		$("#status2").hide();
+		// $("#status2").hide();
 		var jenis_proses_lelang = $(this).val();
 		if(jenis_proses_lelang == "e-tendering") {
 			$("#hps").show();

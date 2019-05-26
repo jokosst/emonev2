@@ -42,7 +42,17 @@
 			<div class="col-md-4">
 				<div class="form-group">
 					<label for="">Pagu Kegiatan</label>
-					<input type="text" value="Rp. {{number_format($pagu_kegiatan,0,',','.')}}" class="form-control" disabled="" >
+					 <?php
+$kegiatan_id_sirup = $kegiatan_id;
+$kegiatan = DB::table('kegiatan')->where('kegiatan_id_sirup',$kegiatan_id_sirup)->first();
+if (isset($kegiatan->id)) {
+	$pagu = $kegiatan->pagu;
+	echo"<input type='text' class='form-control' value='Rp. ",number_format($pagu,0,',','.'),"'  disabled>";
+	}else{
+		echo"<input type='text' class='form-control' value='Rp. ",number_format($pagu_kegiatan,0,',','.'),"'  disabled>";	
+	}
+			?>
+				
 				</div>
 			</div>
 		
